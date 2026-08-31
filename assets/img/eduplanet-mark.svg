@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="EduPlanet mark">
+  <title>EduPlanet</title>
+  <circle cx="48" cy="56" r="29" fill="none" stroke="#0B1B33" stroke-width="5"/>
+  <path d="M40 40 C51 30.5 62 27.5 75 30.5" fill="none" stroke="#01559D" stroke-width="8.5"
+        stroke-linecap="round"/>
+  <circle cx="47" cy="26" r="6.5" fill="#01559D"/>
+  <path d="M40 41 C50 52 63 55 59 65 C56 74 45 77 38 87" fill="none" stroke="#01559D"
+        stroke-width="9" stroke-linecap="round"/>
+  <path d="M86 10 C87.5 17.9 90.6 21 98.5 22.5 C90.6 24 87.5 27.1 86 35 C84.5 27.1 81.4 24 73.5 22.5 C81.4 21 84.5 17.9 86 10 Z"
+        fill="#0B1B33"/>
+</svg>
