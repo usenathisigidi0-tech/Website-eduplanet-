@@ -28,8 +28,8 @@ setTimeout(function () {
 <!-- Fonts load without blocking rendering: a slow or filtered font host must never
      stall the page or the script that reveals its content. -->
 <link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
-      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap"></noscript>
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"></noscript>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -80,8 +80,8 @@ setTimeout(function () {
   <div class="wrap">
     <p class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Academics</p>
     <p class="eyebrow">Academics</p>
-    <h1>The CAPS curriculum, externally examined.</h1>
-    <p class="lede">From Grade RR through to Grade 12, taught by qualified phase specialists and assessed by a private external examination board.</p>
+    <h1>The full CAPS curriculum, externally examined.</h1>
+    <p class="lede">Grade RR right through to Grade 12, taught by qualified phase specialists and assessed by a private external examination board.</p>
   </div>
 </section>
 
@@ -90,19 +90,19 @@ setTimeout(function () {
     <div class="section-head section-head--split reveal">
       <div>
         <p class="eyebrow">Curriculum</p>
-        <h2>A national curriculum, held to an external standard.</h2>
+        <h2>A national curriculum, held to an outside standard.</h2>
       </div>
-      <p class="lede">We teach the CAPS curriculum required of every South African school. What differs is who marks it: a private external examination board, independent of the school.</p>
+      <p class="lede">We teach CAPS &mdash; the same National Curriculum Statement every South African school follows. What differs at EduPlanet is who sets and marks the papers.</p>
     </div>
 
     <div class="grid grid--2 stagger">
       <article class="card">
         <h3>Why an external board matters</h3>
-        <p>When an outside body sets and marks the papers, no one inside the school can soften the standard. Our learners need to work harder, aim higher and achieve more &mdash; and a parent can trust the result because the school did not award it to itself.</p>
+        <p>When an independent body sets and marks the examinations, nobody inside the school can quietly soften the standard. Our learners need to work harder, aim higher and achieve more &mdash; and when a result comes back, a parent can trust it, because the school did not award it to itself.</p>
       </article>
       <article class="card">
         <h3>Taught by phase specialists</h3>
-        <p>Qualified and dedicated foundation phase and intermediate phase staff bring the curriculum to life through lessons built around participation, so children engage with the work instead of sitting through it.</p>
+        <p>Qualified and dedicated foundation phase and intermediate phase staff bring the curriculum to life through lessons built around participation. Children engage with the work rather than sitting through it, and the habit of taking part carries up into the senior grades.</p>
       </article>
     </div>
   </div>
@@ -111,31 +111,88 @@ setTimeout(function () {
 <section class="band band--tint">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">The phases</p>
-      <h2>Grade RR to Grade 12, in four stages.</h2>
+      <p class="eyebrow">Subjects by phase</p>
+      <h2>What your child studies, year by year.</h2>
+      <p class="lede">Four phases carry a learner from the pre-primary classroom to matric. Each one builds directly on the last, so nothing has to be unlearned along the way.</p>
     </div>
 
-    <div class="grid grid--4 stagger">
-      <article class="card">
-        <span class="card__num">Gr RR&ndash;R</span>
-        <h3>Pre-primary</h3>
-        <p>School readiness through play, movement, creative work and routine &mdash; the year that decides how a child feels about school for the rest of it.</p>
-      </article>
-      <article class="card">
-        <span class="card__num">Gr 1&ndash;3</span>
-        <h3>Foundation phase</h3>
-        <p>Reading, writing and numeracy laid down properly, with fun lessons designed to encourage participation and keep children engaged.</p>
-      </article>
-      <article class="card">
-        <span class="card__num">Gr 4&ndash;6</span>
-        <h3>Intermediate phase</h3>
-        <p>Subject teaching begins in earnest, with dedicated intermediate phase staff and a steady rise in independence and responsibility.</p>
-      </article>
-      <article class="card">
-        <span class="card__num">Gr 7&ndash;12</span>
-        <h3>Senior &amp; FET</h3>
-        <p>The senior grades through to matric, written through our private external examination board at examination centre 4342022.</p>
-      </article>
+    <div class="phase reveal">
+      <div>
+        <p class="phase__grades">Grades RR&ndash;3</p>
+        <h3>Foundation Phase</h3>
+        <p class="phase__note">Reading, writing and numeracy laid down properly, through play, movement and creative work. This is where a child decides how they feel about school.</p>
+      </div>
+      <ul class="subjects">
+        <li>English Home Language</li>
+        <li>Afrikaans First Additional Language</li>
+        <li>Mathematics</li>
+        <li>Life Skills</li>
+      </ul>
+    </div>
+
+    <div class="phase reveal">
+      <div>
+        <p class="phase__grades">Grades 4&ndash;6</p>
+        <h3>Intermediate Phase</h3>
+        <p class="phase__note">Separate subjects begin in earnest, and with them a steady rise in independence, note-taking and responsibility for one's own work.</p>
+      </div>
+      <ul class="subjects subjects--split">
+        <li>English Home Language</li>
+        <li>Afrikaans First Additional Language</li>
+        <li>Mathematics</li>
+        <li>Natural Sciences and Technology</li>
+        <li>Social Sciences (History and Geography)</li>
+        <li>Life Skills</li>
+      </ul>
+    </div>
+
+    <div class="phase reveal">
+      <div>
+        <p class="phase__grades">Grades 7&ndash;9</p>
+        <h3>Senior Phase</h3>
+        <p class="phase__note">The widest spread of subjects a learner will study. It is deliberately broad, so that the Grade 9 subject choice is made from experience rather than guesswork.</p>
+      </div>
+      <ul class="subjects subjects--split">
+        <li>English Home Language</li>
+        <li>Afrikaans First Additional Language</li>
+        <li>Mathematics</li>
+        <li>Natural Sciences</li>
+        <li>Social Sciences (History and Geography)</li>
+        <li>Technology</li>
+        <li>Economic Management Sciences</li>
+        <li>Life Orientation</li>
+        <li>Creative Arts</li>
+      </ul>
+    </div>
+
+    <div class="phase reveal">
+      <div>
+        <p class="phase__grades">Grades 10&ndash;12</p>
+        <h3>FET Phase</h3>
+        <p class="phase__note">The matric years. Four core subjects are compulsory for every learner; the rest of the timetable is built from the elective list alongside.</p>
+      </div>
+      <div>
+        <div class="subjects__group">
+          <p class="subjects__head">Core compulsory subjects</p>
+          <ul class="subjects">
+            <li>English Home Language</li>
+            <li>Afrikaans Additional Language <em>or</em> IsiXhosa Additional Language</li>
+            <li>Pure Mathematics <em>or</em> Mathematical Literacy</li>
+            <li>Life Orientation</li>
+          </ul>
+        </div>
+        <div class="subjects__group">
+          <p class="subjects__head">Elective subjects</p>
+          <ul class="subjects subjects--split">
+            <li>Physical Sciences</li>
+            <li>Life Sciences</li>
+            <li>Business Studies</li>
+            <li>History</li>
+            <li>Tourism</li>
+            <li>Computer Applications Technology</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -152,12 +209,13 @@ setTimeout(function () {
       <div>
         <p class="eyebrow">How we teach</p>
         <h2>Participation first.</h2>
-        <p class="lede">A lesson a child takes part in is a lesson a child remembers. That principle runs from the pre-primary classroom to the senior grades.</p>
+        <p class="lede">A lesson a child takes part in is a lesson a child remembers. That principle runs from the pre-primary classroom right up to the matric year.</p>
         <ul class="ticks" style="margin-top:26px">
           <li>Lessons designed to be joined in, not watched</li>
           <li>Creative and practical work alongside written work</li>
           <li>Healthy discipline and clear expectations in every class</li>
           <li>Independent external assessment of learner results</li>
+          <li>Subject choice in Grade 9 made from real experience</li>
         </ul>
       </div>
     </div>

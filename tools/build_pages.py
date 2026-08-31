@@ -95,8 +95,8 @@ HEAD = """<!doctype html>
 <!-- Fonts load without blocking rendering: a slow or filtered font host must never
      stall the page or the script that reveals its content. -->
 <link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
-      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap"></noscript>
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"></noscript>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -348,6 +348,65 @@ HOME = """
   </div>
 </section>
 
+
+<section class="band band--tint">
+  <div class="wrap">
+    <div class="section-head section-head--split reveal">
+      <div>
+        <p class="eyebrow">Phases at a glance</p>
+        <h2>One school, from first day to matric.</h2>
+      </div>
+      <p class="lede">A child can start with us in Grade RR and leave with a matric certificate, without ever changing schools or curricula.</p>
+    </div>
+
+    <div class="grid grid--4 stagger">
+      <article class="card">
+        <span class="card__num">Grades RR&ndash;3</span>
+        <h3>Foundation</h3>
+        <p>English, Afrikaans, Mathematics and Life Skills, taught through play, movement and creative work.</p>
+      </article>
+      <article class="card">
+        <span class="card__num">Grades 4&ndash;6</span>
+        <h3>Intermediate</h3>
+        <p>Separate subjects begin, adding Natural Sciences and Technology and Social Sciences to the core.</p>
+      </article>
+      <article class="card">
+        <span class="card__num">Grades 7&ndash;9</span>
+        <h3>Senior</h3>
+        <p>Nine subjects, the broadest spread of the school career, ending in an informed Grade 9 subject choice.</p>
+      </article>
+      <article class="card">
+        <span class="card__num">Grades 10&ndash;12</span>
+        <h3>FET</h3>
+        <p>Four compulsory core subjects plus electives from Physical Sciences through to Tourism and CAT.</p>
+      </article>
+    </div>
+
+    <p style="margin-top:34px"><a class="arrow-link" href="academics.html">See every subject, phase by phase <span aria-hidden="true">&rarr;</span></a></p>
+  </div>
+</section>
+
+<section class="band band--navy">
+  <div class="wrap">
+    <div class="split reveal" style="align-items:start">
+      <div>
+        <p class="eyebrow">The school week</p>
+        <h2>When our doors are open.</h2>
+        <p class="lede">Reception is staffed through the school day. You are welcome to call ahead, or simply come through and ask for a look around.</p>
+        <div class="btn-row" style="margin-top:30px">
+          <a class="btn btn--primary" href="tel:{tel_href}">Call {tel}</a>
+          <a class="btn btn--on-dark" href="{maps}" target="_blank" rel="noopener">Get directions</a>
+        </div>
+      </div>
+      <ul class="day">
+        <li><time>Mon&ndash;Thu</time><div><strong>07:30 &ndash; 16:00</strong><span>Full school day, reception open throughout</span></div></li>
+        <li><time>Friday</time><div><strong>07:30 &ndash; 15:00</strong><span>Early close</span></div></li>
+        <li><time>Weekends</time><div><strong>Closed</strong><span>Fixtures and events are arranged separately</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section class="band band--paper">
   <div class="wrap">
     <div class="section-head section-head--split reveal">
@@ -443,6 +502,37 @@ ABOUT = pagehead(
   </div>
 </section>
 
+
+<section class="band band--paper">
+  <div class="wrap">
+    <div class="section-head section-head--split reveal">
+      <div>
+        <p class="eyebrow">Independent, and registered</p>
+        <h2>What that actually means for your child.</h2>
+      </div>
+      <p class="lede">Independent does not mean unaccountable. It means we answer to an outside standard as well as to you.</p>
+    </div>
+
+    <div class="grid grid--3 stagger">
+      <article class="card">
+        <span class="card__num">01</span>
+        <h3>Registered with the DBE</h3>
+        <p>We hold EMIS number 200100266 and are registered for Grade RR to Grade 12. Our examination centre number is 4342022.</p>
+      </article>
+      <article class="card">
+        <span class="card__num">02</span>
+        <h3>Externally examined</h3>
+        <p>A private external examination board sets and marks the papers, so results are independent of the school that taught them.</p>
+      </article>
+      <article class="card">
+        <span class="card__num">03</span>
+        <h3>The national curriculum</h3>
+        <p>We teach CAPS in full. A learner moving to or from EduPlanet moves between schools on the same curriculum.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="band band--tint">
   <div class="wrap wrap--narrow">
     <div class="section-head reveal">
@@ -465,27 +555,27 @@ ABOUT = pagehead(
 ACADEMICS = pagehead(
     "Academics",
     "Academics",
-    "The CAPS curriculum, externally examined.",
-    "From Grade RR through to Grade 12, taught by qualified phase specialists and assessed by a private external examination board.",
+    "The full CAPS curriculum, externally examined.",
+    "Grade RR right through to Grade 12, taught by qualified phase specialists and assessed by a private external examination board.",
 ) + """
 <section class="band band--paper">
   <div class="wrap">
     <div class="section-head section-head--split reveal">
       <div>
         <p class="eyebrow">Curriculum</p>
-        <h2>A national curriculum, held to an external standard.</h2>
+        <h2>A national curriculum, held to an outside standard.</h2>
       </div>
-      <p class="lede">We teach the CAPS curriculum required of every South African school. What differs is who marks it: a private external examination board, independent of the school.</p>
+      <p class="lede">We teach CAPS &mdash; the same National Curriculum Statement every South African school follows. What differs at EduPlanet is who sets and marks the papers.</p>
     </div>
 
     <div class="grid grid--2 stagger">
       <article class="card">
         <h3>Why an external board matters</h3>
-        <p>When an outside body sets and marks the papers, no one inside the school can soften the standard. Our learners need to work harder, aim higher and achieve more &mdash; and a parent can trust the result because the school did not award it to itself.</p>
+        <p>When an independent body sets and marks the examinations, nobody inside the school can quietly soften the standard. Our learners need to work harder, aim higher and achieve more &mdash; and when a result comes back, a parent can trust it, because the school did not award it to itself.</p>
       </article>
       <article class="card">
         <h3>Taught by phase specialists</h3>
-        <p>Qualified and dedicated foundation phase and intermediate phase staff bring the curriculum to life through lessons built around participation, so children engage with the work instead of sitting through it.</p>
+        <p>Qualified and dedicated foundation phase and intermediate phase staff bring the curriculum to life through lessons built around participation. Children engage with the work rather than sitting through it, and the habit of taking part carries up into the senior grades.</p>
       </article>
     </div>
   </div>
@@ -494,31 +584,88 @@ ACADEMICS = pagehead(
 <section class="band band--tint">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">The phases</p>
-      <h2>Grade RR to Grade 12, in four stages.</h2>
+      <p class="eyebrow">Subjects by phase</p>
+      <h2>What your child studies, year by year.</h2>
+      <p class="lede">Four phases carry a learner from the pre-primary classroom to matric. Each one builds directly on the last, so nothing has to be unlearned along the way.</p>
     </div>
 
-    <div class="grid grid--4 stagger">
-      <article class="card">
-        <span class="card__num">Gr RR&ndash;R</span>
-        <h3>Pre-primary</h3>
-        <p>School readiness through play, movement, creative work and routine &mdash; the year that decides how a child feels about school for the rest of it.</p>
-      </article>
-      <article class="card">
-        <span class="card__num">Gr 1&ndash;3</span>
-        <h3>Foundation phase</h3>
-        <p>Reading, writing and numeracy laid down properly, with fun lessons designed to encourage participation and keep children engaged.</p>
-      </article>
-      <article class="card">
-        <span class="card__num">Gr 4&ndash;6</span>
-        <h3>Intermediate phase</h3>
-        <p>Subject teaching begins in earnest, with dedicated intermediate phase staff and a steady rise in independence and responsibility.</p>
-      </article>
-      <article class="card">
-        <span class="card__num">Gr 7&ndash;12</span>
-        <h3>Senior &amp; FET</h3>
-        <p>The senior grades through to matric, written through our private external examination board at examination centre 4342022.</p>
-      </article>
+    <div class="phase reveal">
+      <div>
+        <p class="phase__grades">Grades RR&ndash;3</p>
+        <h3>Foundation Phase</h3>
+        <p class="phase__note">Reading, writing and numeracy laid down properly, through play, movement and creative work. This is where a child decides how they feel about school.</p>
+      </div>
+      <ul class="subjects">
+        <li>English Home Language</li>
+        <li>Afrikaans First Additional Language</li>
+        <li>Mathematics</li>
+        <li>Life Skills</li>
+      </ul>
+    </div>
+
+    <div class="phase reveal">
+      <div>
+        <p class="phase__grades">Grades 4&ndash;6</p>
+        <h3>Intermediate Phase</h3>
+        <p class="phase__note">Separate subjects begin in earnest, and with them a steady rise in independence, note-taking and responsibility for one's own work.</p>
+      </div>
+      <ul class="subjects subjects--split">
+        <li>English Home Language</li>
+        <li>Afrikaans First Additional Language</li>
+        <li>Mathematics</li>
+        <li>Natural Sciences and Technology</li>
+        <li>Social Sciences (History and Geography)</li>
+        <li>Life Skills</li>
+      </ul>
+    </div>
+
+    <div class="phase reveal">
+      <div>
+        <p class="phase__grades">Grades 7&ndash;9</p>
+        <h3>Senior Phase</h3>
+        <p class="phase__note">The widest spread of subjects a learner will study. It is deliberately broad, so that the Grade 9 subject choice is made from experience rather than guesswork.</p>
+      </div>
+      <ul class="subjects subjects--split">
+        <li>English Home Language</li>
+        <li>Afrikaans First Additional Language</li>
+        <li>Mathematics</li>
+        <li>Natural Sciences</li>
+        <li>Social Sciences (History and Geography)</li>
+        <li>Technology</li>
+        <li>Economic Management Sciences</li>
+        <li>Life Orientation</li>
+        <li>Creative Arts</li>
+      </ul>
+    </div>
+
+    <div class="phase reveal">
+      <div>
+        <p class="phase__grades">Grades 10&ndash;12</p>
+        <h3>FET Phase</h3>
+        <p class="phase__note">The matric years. Four core subjects are compulsory for every learner; the rest of the timetable is built from the elective list alongside.</p>
+      </div>
+      <div>
+        <div class="subjects__group">
+          <p class="subjects__head">Core compulsory subjects</p>
+          <ul class="subjects">
+            <li>English Home Language</li>
+            <li>Afrikaans Additional Language <em>or</em> IsiXhosa Additional Language</li>
+            <li>Pure Mathematics <em>or</em> Mathematical Literacy</li>
+            <li>Life Orientation</li>
+          </ul>
+        </div>
+        <div class="subjects__group">
+          <p class="subjects__head">Elective subjects</p>
+          <ul class="subjects subjects--split">
+            <li>Physical Sciences</li>
+            <li>Life Sciences</li>
+            <li>Business Studies</li>
+            <li>History</li>
+            <li>Tourism</li>
+            <li>Computer Applications Technology</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -535,12 +682,13 @@ ACADEMICS = pagehead(
       <div>
         <p class="eyebrow">How we teach</p>
         <h2>Participation first.</h2>
-        <p class="lede">A lesson a child takes part in is a lesson a child remembers. That principle runs from the pre-primary classroom to the senior grades.</p>
+        <p class="lede">A lesson a child takes part in is a lesson a child remembers. That principle runs from the pre-primary classroom right up to the matric year.</p>
         <ul class="ticks" style="margin-top:26px">
           <li>Lessons designed to be joined in, not watched</li>
           <li>Creative and practical work alongside written work</li>
           <li>Healthy discipline and clear expectations in every class</li>
           <li>Independent external assessment of learner results</li>
+          <li>Subject choice in Grade 9 made from real experience</li>
         </ul>
       </div>
     </div>
@@ -632,6 +780,54 @@ ADMISSIONS = pagehead(
       <div class="btn-row" style="margin-top:30px">
         <a class="btn btn--primary" href="tel:{tel_href}">Call {tel}</a>
         <a class="btn btn--ghost" href="https://wa.me/{wa_href}" target="_blank" rel="noopener">WhatsApp {wa}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--paper">
+  <div class="wrap wrap--narrow">
+    <div class="section-head reveal">
+      <p class="eyebrow">Questions parents ask</p>
+      <h2>Before you apply.</h2>
+    </div>
+
+    <div class="faq reveal">
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq1">Which grades does EduPlanet take?</button>
+        <div class="faq__a" id="faq1" hidden>
+          <p>Grade RR through to Grade 12. We are registered with the Department of Education for the full range, so a child can join in the pre-primary year and stay with us until matric.</p>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq2">Is the school properly registered?</button>
+        <div class="faq__a" id="faq2" hidden>
+          <p>Yes. EduPlanet is a registered independent school. Our Department of Education EMIS number is 200100266 and our examination centre number is 4342022. The company registration is 2016/040404/07. You are welcome to verify any of these.</p>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq3">Which curriculum do you follow?</button>
+        <div class="faq__a" id="faq3" hidden>
+          <p>CAPS, the same national curriculum used across South African schools. Our learners are assessed through a private external examination board, which means the standard is set and marked independently of the school.</p>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq4">Which languages are offered?</button>
+        <div class="faq__a" id="faq4" hidden>
+          <p>English Home Language throughout, with Afrikaans First Additional Language from the Foundation Phase. In Grades 10 to 12 a learner takes either Afrikaans Additional Language or IsiXhosa Additional Language.</p>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq5">When can I visit the school?</button>
+        <div class="faq__a" id="faq5" hidden>
+          <p>Reception is open Monday to Thursday from 07:30 to 16:00, and Friday from 07:30 to 15:00. We are at 1 Eveready Road, Struandale. Call 041 451 1046 or WhatsApp 060 527 3468 if you would like us to expect you.</p>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false" aria-controls="faq6">What if I cannot print the form?</button>
+        <div class="faq__a" id="faq6" hidden>
+          <p>Use the online application form on your phone, or come to our reception area at school and we will assist you in completing and submitting the application from start to finish.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -779,7 +975,7 @@ PAGES = {
     "admissions.html": dict(
         title=f"Admissions — {SITE}",
         desc="How to apply to EduPlanet Independent School: the online application form, the documents you need, and where to send them.",
-        body=ADMISSIONS, active="admissions.html", cta=False),
+        body=ADMISSIONS, active="admissions.html", cta=True),
     "school-life.html": dict(
         title=f"School Life — {SITE}",
         desc="Sport, culture and creative work at EduPlanet Independent School in Struandale, Gqeberha.",

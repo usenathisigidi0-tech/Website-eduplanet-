@@ -18,7 +18,6 @@
       nav.classList.toggle('is-open', !open);
     });
 
-    // Close on Escape, and when a link is followed.
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
         toggle.setAttribute('aria-expanded', 'false');
@@ -60,7 +59,6 @@
         var el = entry.target;
         el.classList.add('in');
         io.unobserve(el);
-        // Retire stagger delays once the entrance has finished.
         if (el.classList.contains('stagger')) {
           window.setTimeout(function () { el.classList.add('done'); }, 1200);
         }
@@ -73,32 +71,48 @@
   }
 
   /* --------------------------------------------------------- hero video
-     The video is decorative. It is only fetched on screens that will
-     actually show it, so phones and reduced-motion visitors never pay
-     for a download they don't see. The poster carries the hero alone. */
+     The video plays on every screen, phones included. Only two things hold
+     it back: a reduced-motion preference, or Data Saver being switched on.
+     In both cases the poster carries the hero on its own. */
   var hero = document.querySelector('.hero');
   var video = hero && hero.querySelector('video[data-src-mp4]');
 
-  var GATES = [
-    '(max-width: 720px)',
-    '(orientation: portrait) and (max-width: 1024px)',
-    '(orientation: portrait) and (pointer: coarse)',
-    '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
-    '(prefers-reduced-motion: reduce)'
-  ];
-  var MQLS = GATES.map(function (q) { return window.matchMedia(q); });
+  var HOLD_BACK = ['(prefers-reduced-motion: reduce)']
+    .map(function (q) { return window.matchMedia(q); });
 
   function saveData() {
     return !!(navigator.connection && navigator.connection.saveData);
   }
 
   var videoStarted = false;
+
+  // Some browsers refuse muted autoplay anyway — iOS in Low Power Mode is the
+  // common one. Rather than silently showing a still, offer the play.
+  function offerPlayButton() {
+    if (!hero || hero.querySelector('.hero__play')) return;
+    var host = hero.querySelector('.hero__inner .wrap') || hero;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'hero__play';
+    b.innerHTML =
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.4v13.2L19 12z"/></svg>' +
+      '<span>Play video</span>';
+    b.addEventListener('click', function () {
+      var p = video.play();
+      if (p && p.then) {
+        p.then(function () { hero.classList.add('video-ready'); b.remove(); })
+         .catch(function () { /* leave the poster and the button in place */ });
+      }
+    });
+    host.appendChild(b);
+  }
+
   function loadHeroVideo() {
     if (videoStarted || !video) return;
     videoStarted = true;
 
-    // WebM first (smaller, and the only format some Linux Chromium builds ship),
-    // H.264 second for Safari and everything else.
+    // WebM first (smaller, and the only format some Linux Chromium builds
+    // ship), H.264 second for Safari and everything else.
     [['data-src-webm', 'video/webm'], ['data-src-mp4', 'video/mp4']].forEach(function (pair) {
       var url = video.getAttribute(pair[0]);
       if (!url) return;
@@ -111,27 +125,30 @@
 
     var play = function () {
       var p = video.play();
-      if (p && typeof p.catch === 'function') { p.catch(function () { /* autoplay refused: poster stays */ }); }
-      hero.classList.add('video-ready');
+      if (p && p.then) {
+        p.then(function () { hero.classList.add('video-ready'); })
+         .catch(function () { offerPlayButton(); });
+      } else {
+        hero.classList.add('video-ready');
+      }
     };
 
     if (video.readyState >= 3) { play(); }
     else { video.addEventListener('canplay', play, { once: true }); }
 
-    // If no source can play, the poster image simply remains. The element is
-    // left in place, transparent, rather than torn out of the DOM.
+    // If no source can play, the poster image simply remains.
     video.addEventListener('error', function () {
       hero.classList.remove('video-ready');
     }, { once: true });
   }
 
   function applyHeroMode() {
-    var blocked = MQLS.some(function (m) { return m.matches; }) || saveData();
-    if (!blocked) { loadHeroVideo(); }
+    if (HOLD_BACK.some(function (m) { return m.matches; }) || saveData()) return;
+    loadHeroVideo();
   }
 
   if (video) {
-    MQLS.forEach(function (m) { m.addEventListener('change', applyHeroMode); });
+    HOLD_BACK.forEach(function (m) { m.addEventListener('change', applyHeroMode); });
     applyHeroMode();
 
     // Don't keep decoding off-screen.
@@ -153,6 +170,15 @@
       if (document.hidden) { video.pause(); }
       else { video.play().catch(function () {}); }
     }
+  });
+
+  /* ------------------------------------------------------------- accordion */
+  document.querySelectorAll('.faq__q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      document.getElementById(btn.getAttribute('aria-controls')).hidden = open;
+    });
   });
 
   /* ------------------------------------------------------------- footer */
