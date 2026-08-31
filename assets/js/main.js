@@ -71,25 +71,16 @@
   }
 
   /* --------------------------------------------------------- hero video
-     The video plays on every screen, phones included. Only two things hold
-     it back: a reduced-motion preference, or Data Saver being switched on.
-     In both cases the poster carries the hero on its own. */
+     Playback is started by the browser itself: the element carries `autoplay`
+     and its sources in the markup, so it begins during page parse rather than
+     waiting for this script. Everything here is a safety net around that. */
   var hero = document.querySelector('.hero');
-  var video = hero && hero.querySelector('video[data-src-mp4]');
+  var video = hero && hero.querySelector('video');
 
-  var HOLD_BACK = ['(prefers-reduced-motion: reduce)']
-    .map(function (q) { return window.matchMedia(q); });
-
-  function saveData() {
-    return !!(navigator.connection && navigator.connection.saveData);
-  }
-
-  var videoStarted = false;
-
-  // Some browsers refuse muted autoplay anyway — iOS in Low Power Mode is the
-  // common one. Rather than silently showing a still, offer the play.
+  // Some browsers refuse muted autoplay regardless — iOS in Low Power Mode is
+  // the common one. Rather than leave a silent still, offer the play.
   function offerPlayButton() {
-    if (!hero || hero.querySelector('.hero__play')) return;
+    if (!hero || hero.querySelector('.hero__play') || !video.querySelector('source')) return;
     var host = hero.querySelector('.hero__inner .wrap') || hero;
     var b = document.createElement('button');
     b.type = 'button';
@@ -98,64 +89,35 @@
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.4v13.2L19 12z"/></svg>' +
       '<span>Play video</span>';
     b.addEventListener('click', function () {
+      video.muted = true;                       // a muted play is the one browsers allow
       var p = video.play();
-      if (p && p.then) {
-        p.then(function () { hero.classList.add('video-ready'); b.remove(); })
-         .catch(function () { /* leave the poster and the button in place */ });
-      }
+      if (p && p.then) { p.then(function () { b.remove(); }).catch(function () {}); }
+      else { b.remove(); }
     });
     host.appendChild(b);
   }
 
-  function loadHeroVideo() {
-    if (videoStarted || !video) return;
-    videoStarted = true;
-
-    // WebM first (smaller, and the only format some Linux Chromium builds
-    // ship), H.264 second for Safari and everything else.
-    [['data-src-webm', 'video/webm'], ['data-src-mp4', 'video/mp4']].forEach(function (pair) {
-      var url = video.getAttribute(pair[0]);
-      if (!url) return;
-      var source = document.createElement('source');
-      source.src = url;
-      source.type = pair[1];
-      video.appendChild(source);
-    });
-    video.load();
-
-    var play = function () {
-      var p = video.play();
-      if (p && p.then) {
-        p.then(function () { hero.classList.add('video-ready'); })
-         .catch(function () { offerPlayButton(); });
-      } else {
-        hero.classList.add('video-ready');
-      }
-    };
-
-    if (video.readyState >= 3) { play(); }
-    else { video.addEventListener('canplay', play, { once: true }); }
-
-    // If no source can play, the poster image simply remains.
-    video.addEventListener('error', function () {
-      hero.classList.remove('video-ready');
-    }, { once: true });
-  }
-
-  function applyHeroMode() {
-    if (HOLD_BACK.some(function (m) { return m.matches; }) || saveData()) return;
-    loadHeroVideo();
-  }
-
   if (video) {
-    HOLD_BACK.forEach(function (m) { m.addEventListener('change', applyHeroMode); });
-    applyHeroMode();
+    // Nudge it once, in case autoplay was deferred rather than refused.
+    var kick = function () {
+      if (!video.paused || !video.querySelector('source')) return;
+      var p = video.play();
+      if (p && p.catch) { p.catch(function () { if (video.paused) offerPlayButton(); }); }
+    };
+    if (video.readyState >= 2) { kick(); }
+    video.addEventListener('loadeddata', kick, { once: true });
+    window.addEventListener('load', kick, { once: true });
+
+    // If it still has not started shortly after load, autoplay was refused.
+    window.setTimeout(function () {
+      if (video.paused && video.querySelector('source')) { offerPlayButton(); }
+    }, 1800);
 
     // Don't keep decoding off-screen.
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          if (!videoStarted) return;
+          if (!video.querySelector('source')) return;
           if (e.isIntersecting) { video.play().catch(function () {}); }
           else { video.pause(); }
         });
@@ -166,7 +128,7 @@
   /* --------------------------------------------------- pause on hidden tab */
   document.addEventListener('visibilitychange', function () {
     document.body.classList.toggle('paused', document.hidden);
-    if (video && videoStarted) {
+    if (video && video.querySelector('source')) {
       if (document.hidden) { video.pause(); }
       else { video.play().catch(function () {}); }
     }

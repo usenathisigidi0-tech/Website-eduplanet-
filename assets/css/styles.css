@@ -327,9 +327,9 @@ a:hover { color: var(--brand-700); }
   object-fit: cover;
   object-position: 50% 42%;
 }
-.hero__media video { opacity: 0; transition: opacity 1.1s var(--ease); will-change: opacity; }
-.hero.video-ready .hero__media video { opacity: 1; }
-.hero.video-ready .hero__media img { opacity: 0; transition: opacity 1.1s var(--ease); }
+/* The poster attribute paints the first frame, so the element is visible from
+   the start and there is nothing to fade in. */
+.hero__media video { opacity: 1; background: var(--navy); }
 
 /* Four-layer legibility: base linear scrim + radial + text shadow on the block. */
 /* Tuned against the WORST frame behind the text — the bright golden-hour poster
@@ -700,7 +700,6 @@ a:hover { color: var(--brand-700); }
   }
   .reveal, .stagger > *,
   .js .reveal, .js .stagger > * { opacity: 1 !important; transform: none !important; }
-  .hero__media video { display: none; }
 }
 
 /* Short screens: the hero meta strip has no room. */

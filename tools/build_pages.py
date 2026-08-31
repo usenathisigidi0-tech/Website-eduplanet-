@@ -36,6 +36,19 @@ setTimeout(function () {
 }, 4000);
 </script>"""
 
+HERO_GATE = """<script>
+(function () {
+  var v = document.currentScript.previousElementSibling;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var save = !!(navigator.connection && navigator.connection.saveData);
+  if (!reduce && !save) return;          // the common path: let it autoplay
+  v.removeAttribute('autoplay');
+  while (v.firstChild) v.removeChild(v.firstChild);
+  v.load();                              // poster attribute carries the hero
+})();
+</script>"""
+
+
 MARK = """<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
         <circle cx="48" cy="56" r="29" fill="none" stroke="currentColor" stroke-width="5"/>
         <path d="M40 40 C51 30.5 62 27.5 75 30.5" fill="none" stroke="#2E90E0" stroke-width="8.5" stroke-linecap="round"/>
@@ -230,10 +243,12 @@ def pagehead(crumb, eyebrow, title, lede):
 HOME = """
 <section class="hero">
   <div class="hero__media">
-    <img src="assets/img/hero-poster.jpg" alt="" aria-hidden="true">
-    <video data-src-webm="assets/video/edu-planet-hero.webm"
-           data-src-mp4="assets/video/edu-planet-hero.mp4"
-           muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+    <video poster="assets/img/hero-poster.jpg" autoplay muted loop playsinline
+           preload="auto" aria-hidden="true" tabindex="-1">
+      <source src="assets/video/edu-planet-hero.webm" type="video/webm">
+      <source src="assets/video/edu-planet-hero.mp4" type="video/mp4">
+    </video>
+    {hero_gate}
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
 
@@ -991,6 +1006,7 @@ FIELDS = dict(
     wa=WA_DISPLAY, wa_href=WA_HREF, address=ADDRESS, maps=MAPS,
     form=APPLY_FORM, pdf=APPLY_PDF,
     icon_phone=ICON_PHONE, icon_wa=ICON_WA, head_script=HEAD_SCRIPT,
+    hero_gate=HERO_GATE,
     hours_short="Monday to Thursday 07:30 to 16:00 and Friday 07:30 to 15:00",
 )
 
