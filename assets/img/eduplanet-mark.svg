@@ -1,11 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="EduPlanet mark">
   <title>EduPlanet</title>
-  <circle cx="48" cy="56" r="29" fill="none" stroke="#0B1B33" stroke-width="5"/>
-  <path d="M40 40 C51 30.5 62 27.5 75 30.5" fill="none" stroke="#01559D" stroke-width="8.5"
-        stroke-linecap="round"/>
-  <circle cx="47" cy="26" r="6.5" fill="#01559D"/>
-  <path d="M40 41 C50 52 63 55 59 65 C56 74 45 77 38 87" fill="none" stroke="#01559D"
-        stroke-width="9" stroke-linecap="round"/>
-  <path d="M86 10 C87.5 17.9 90.6 21 98.5 22.5 C90.6 24 87.5 27.1 86 35 C84.5 27.1 81.4 24 73.5 22.5 C81.4 21 84.5 17.9 86 10 Z"
-        fill="#0B1B33"/>
+  <!-- Thin black ring, offset down-right so it reads on the right and bottom
+       where the blue does not cover it. -->
+  <circle cx="53" cy="55" r="27" fill="none" stroke="#111111" stroke-width="3.6"/>
+
+  <!-- Thick blue arc: the other half of the same circle. One o'clock,
+       counter-clockwise over the top and down the left, tapering at seven. -->
+  <path d="M71.2 30.8 A30 30 0 1 0 38 80"
+        fill="none" stroke="#1B6FB8" stroke-width="8.6" stroke-linecap="round"/>
+
+  <!-- The leaping figure, clear of the arc, filling the ring. -->
+  <circle cx="50" cy="35" r="7" fill="#1B6FB8"/>
+  <path d="M48 43 C65 48 69 59 55 65 C45 69 42 77 47 86"
+        fill="none" stroke="#1B6FB8" stroke-width="8.8" stroke-linecap="round"/>
+
+  <!-- Four-point sparkle, upper right, clear of the arc. -->
+  <path d="M85 10 C86.2 16.4 88.6 18.8 95 20 C88.6 21.2 86.2 23.6 85 30
+           C83.8 23.6 81.4 21.2 75 20 C81.4 18.8 83.8 16.4 85 10 Z"
+        fill="#111111"/>
 </svg>

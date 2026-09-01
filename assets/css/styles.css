@@ -237,9 +237,11 @@ a:hover { color: var(--brand-700); }
   margin-right: auto;
 }
 .brand svg { width: 34px; height: 34px; flex: none; }
+/* The wordmark follows the logo: a humanist sans at medium-bold, not the
+   heavy display grotesque used for headings. */
 .brand__name {
-  font-family: var(--display);
-  font-size: 1.3rem; font-weight: 800; letter-spacing: -.035em; line-height: 1;
+  font-family: var(--sans);
+  font-size: 1.28rem; font-weight: 700; letter-spacing: -.012em; line-height: 1;
 }
 .brand__sub {
   display: block;
