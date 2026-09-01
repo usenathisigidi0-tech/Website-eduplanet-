@@ -78,6 +78,7 @@ img, svg, video { display: block; max-width: 100%; }
 img, video { height: auto; }
 
 h1, h2, h3, h4 {
+  overflow-wrap: break-word;
   font-family: var(--display);
   font-weight: 800;
   line-height: 1.04;
@@ -236,19 +237,18 @@ a:hover { color: var(--brand-700); }
   flex: none;
   margin-right: auto;
 }
-.brand svg { width: 34px; height: 34px; flex: none; }
-/* The wordmark follows the logo: a humanist sans at medium-bold, not the
-   heavy display grotesque used for headings. */
-.brand__name {
-  font-family: var(--sans);
-  font-size: 1.28rem; font-weight: 700; letter-spacing: -.012em; line-height: 1;
-}
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.brand__mark { width: 34px; height: 36px; flex: none; }
+.brand__text { display: block; }
+.brand__word { width: 104px; height: 18px; display: block; }
+
 .brand__sub {
   display: block;
   font-family: var(--mono);
-  font-size: .58rem; letter-spacing: .17em; text-transform: uppercase;
+  font-size: .56rem; letter-spacing: .16em; text-transform: uppercase;
   color: var(--on-navy-muted);
-  margin-top: 3px;
+  margin-top: 4px;
+  white-space: nowrap;
 }
 
 .nav { display: flex; align-items: center; gap: 4px; }
@@ -338,23 +338,43 @@ a:hover { color: var(--brand-700); }
    that phones and reduced-motion visitors get, not the darker video frames. */
 .hero__scrim {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  /* Two scrims, not one blanket: a gentle lift off the bottom edge, plus a
+     left-anchored wash that covers only the text column. The right of the
+     frame stays clear so the footage is actually visible. */
   background:
-    linear-gradient(to top, rgba(4,16,32,.96) 0%, rgba(4,16,32,.90) 34%,
-                            rgba(4,16,32,.72) 68%, rgba(4,16,32,.68) 100%),
-    radial-gradient(ellipse 105% 80% at 20% 82%, rgba(4,16,32,.72) 0%, rgba(4,16,32,0) 72%);
+    linear-gradient(to right, rgba(4,16,32,.93) 0%, rgba(4,16,32,.89) 36%,
+                              rgba(4,16,32,.68) 54%, rgba(4,16,32,.18) 76%,
+                              rgba(4,16,32,0) 90%),
+    linear-gradient(to top, rgba(4,16,32,.72) 0%, rgba(4,16,32,.40) 30%,
+                            rgba(4,16,32,.10) 62%, rgba(4,16,32,.14) 100%);
 }
-/* Narrow screens crop the poster tighter and sit the text over more of it. */
+/* Narrow screens put the text across the full width, so the wash has to come
+   from the bottom instead of the side. */
 @media (max-width: 900px) {
   .hero__scrim {
     background:
-      linear-gradient(to top, rgba(4,16,32,.97) 0%, rgba(4,16,32,.94) 45%,
-                              rgba(4,16,32,.82) 78%, rgba(4,16,32,.74) 100%);
+      linear-gradient(to top, rgba(4,16,32,.95) 0%, rgba(4,16,32,.90) 48%,
+                              rgba(4,16,32,.66) 72%, rgba(4,16,32,.30) 90%,
+                              rgba(4,16,32,.22) 100%);
   }
 }
 
+/* Small text over live footage gets its own backing rather than relying on the
+   wash, so it stays readable whatever frame is behind it. */
+.hero .eyebrow {
+  /* .80 keeps the label at 4.5:1 even over the brightest frame behind it. */
+  background: rgba(6,20,38,.80);
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 999px;
+  padding: 7px 14px 7px 12px;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  text-shadow: none;
+}
+
 .hero__inner { padding: 150px 0 clamp(48px, 7vw, 88px); width: 100%; }
-.hero h1 { color: #fff; max-width: 17ch; margin-bottom: .35em; }
-.hero__lede { color: #DCE8F3; max-width: 54ch; font-size: clamp(1.05rem, 1.3vw, 1.28rem); }
+.hero__meta { max-width: 46ch; }
+.hero h1 { color: #fff; max-width: 13ch; margin-bottom: .35em; }
+.hero__lede { color: #DCE8F3; max-width: 40ch; font-size: clamp(1.05rem, 1.3vw, 1.28rem); }
 .hero .eyebrow, .hero h1, .hero__lede {
   text-shadow: 0 1px 2px rgba(4,14,28,.75), 0 3px 14px rgba(4,14,28,.55);
 }
@@ -452,7 +472,7 @@ a:hover { color: var(--brand-700); }
 }
 .card:hover { border-color: var(--hairline-strong); box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .card h3 { margin-bottom: .45em; }
-.card p { color: var(--text-muted); font-size: .96rem; margin-bottom: 0; }
+.card p { color: var(--text-muted); font-size: .96rem; margin-bottom: 0; overflow-wrap: break-word; }
 .card__num {
   font-family: var(--mono); font-size: .72rem; letter-spacing: .14em;
   color: var(--brand); display: block; margin-bottom: 14px;
@@ -473,11 +493,32 @@ a:hover { color: var(--brand-700); }
   border: 1px solid var(--hairline); border-radius: 6px; overflow: hidden;
 }
 @media (max-width: 780px) { .stats { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 430px) {
+  .stat { padding: 20px 16px; }
+  .stat__value { font-size: clamp(1.3rem, 6.2vw, 1.7rem); }
+  /* A nine-digit registration number is data, not a headline: it gets its own
+   size so it fits one line in a half-width cell and doesn't outshout "2016". */
+.stat__value--long {
+  font-size: clamp(1.15rem, 3.4vw, 1.9rem);
+  letter-spacing: -.03em;
+}
+.stat__label { font-size: .62rem; letter-spacing: .1em; }
+}
 .stat { background: var(--paper); padding: clamp(22px, 2.6vw, 32px); }
 .stat__value {
-  font-family: var(--display); font-size: clamp(2.1rem, 3.3vw, 3rem);
-  font-weight: 800; letter-spacing: -.04em; color: var(--brand);
-  line-height: 1; margin-bottom: 10px;
+  font-family: var(--display);
+  /* Sized off the column, not the viewport: the longest value is a nine-digit
+     registration number and it has to fit a half-width cell on a phone. */
+  font-size: clamp(1.45rem, 5.1vw, 2.9rem);
+  font-weight: 800; letter-spacing: -.045em; color: var(--brand);
+  line-height: 1.02; margin-bottom: 10px;
+  overflow-wrap: anywhere; font-variant-numeric: tabular-nums;
+}
+/* A nine-digit registration number is data, not a headline: it gets its own
+   size so it fits one line in a half-width cell and doesn't outshout "2016". */
+.stat__value--long {
+  font-size: clamp(1.15rem, 3.4vw, 1.9rem);
+  letter-spacing: -.03em;
 }
 .stat__label {
   font-family: var(--mono); font-size: .68rem; letter-spacing: .13em;
@@ -486,7 +527,13 @@ a:hover { color: var(--brand-700); }
 .band--navy .stats { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.14); }
 .band--navy .stat { background: var(--navy); }
 .band--navy .stat__value { color: #fff; }
-.band--navy .stat__label { color: var(--on-navy-muted); }
+.band--navy /* A nine-digit registration number is data, not a headline: it gets its own
+   size so it fits one line in a half-width cell and doesn't outshout "2016". */
+.stat__value--long {
+  font-size: clamp(1.15rem, 3.4vw, 1.9rem);
+  letter-spacing: -.03em;
+}
+.stat__label { color: var(--on-navy-muted); }
 
 /* --------------------------------------------------------------- media -- */
 
@@ -553,7 +600,7 @@ a:hover { color: var(--brand-700); }
   font-family: var(--mono); font-size: .72rem; letter-spacing: .12em;
   text-transform: uppercase; color: var(--text-muted); margin: 0;
 }
-.rows dd { margin: 0; font-weight: 500; }
+.rows dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
 .band--navy .rows, .band--navy .rows div { border-color: rgba(255,255,255,.16); }
 .band--navy .rows dt { color: var(--on-navy-muted); }
 .band--navy .rows dd { color: #fff; }
@@ -793,6 +840,8 @@ a:hover { color: var(--brand-700); }
   width: 100%; display: flex; align-items: center; justify-content: space-between;
   gap: 20px; padding: 22px 0;
   background: none; border: 0; cursor: pointer; text-align: left;
+  /* room for the chevron's rotated bounding box, which is wider than the glyph */
+  padding-right: 8px;
   font-family: var(--display); font-size: clamp(1.05rem, 1.5vw, 1.28rem);
   font-weight: 700; letter-spacing: -.02em; color: var(--ink);
 }
@@ -822,3 +871,9 @@ a:hover { color: var(--brand-700); }
 }
 .day strong { display: block; color: #fff; font-weight: 700; font-size: 1.05rem; }
 .day span { color: var(--on-navy-muted); font-size: .95rem; }
+
+/* Sized last so it wins the cascade: at 320px the cell is only ~95px wide and
+   nine digits have to sit on one line inside it. */
+@media (max-width: 430px) {
+  .stat__value--long { font-size: clamp(.92rem, 4.2vw, 1.35rem); letter-spacing: -.035em; }
+}

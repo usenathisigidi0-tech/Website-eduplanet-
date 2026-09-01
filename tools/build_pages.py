@@ -7,6 +7,7 @@ pages. Edit the templates or PAGES below, run `python3 tools/build_pages.py`
 from the repo root, and the .html files are rewritten in place.
 """
 
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -49,13 +50,28 @@ HERO_GATE = """<script>
 </script>"""
 
 
-MARK = """<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-        <circle cx="53" cy="55" r="27" fill="none" stroke="currentColor" stroke-width="3.8"/>
-        <path d="M71.2 30.8 A30 30 0 1 0 38 80" fill="none" stroke="#3E9BE6" stroke-width="8.8" stroke-linecap="round"/>
-        <circle cx="50" cy="35" r="7" fill="#3E9BE6"/>
-        <path d="M48 43 C65 48 69 59 55 65 C45 69 42 77 47 86" fill="none" stroke="#3E9BE6" stroke-width="9" stroke-linecap="round"/>
-        <path d="M85 10 C86.2 16.4 88.6 18.8 95 20 C88.6 21.2 86.2 23.6 85 30 C83.8 23.6 81.4 21.2 75 20 C81.4 18.8 83.8 16.4 85 10 Z" fill="currentColor"/>
-      </svg>"""
+def _symbol(path, sid):
+    """Turn one of the traced logo files into a reusable <symbol>."""
+    t = (ROOT / path).read_text(encoding="utf-8")
+    vb = re.search(r'viewBox="([^"]+)"', t).group(1)
+    inner = re.search(r"<g transform=.*</g>", t, re.S).group(0)
+    return f'<symbol id="{sid}" viewBox="{vb}">{inner}</symbol>'
+
+
+# Defined once per page; the header and footer reference it with <use>, so the
+# geometry is not repeated and currentColor still resolves per instance.
+SPRITE = ('<svg class="sprite" aria-hidden="true" focusable="false">'
+          + _symbol("assets/img/eduplanet-mark.svg", "ep-mark")
+          + _symbol("assets/img/eduplanet-wordmark.svg", "ep-word")
+          + '</svg>')
+
+BRAND = """<a class="brand" href="index.html" aria-label="EduPlanet Independent School, home">
+        <svg class="brand__mark" aria-hidden="true"><use href="#ep-mark"/></svg>
+        <span class="brand__text">
+          <svg class="brand__word" aria-hidden="true"><use href="#ep-word"/></svg>
+          <span class="brand__sub">Independent School</span>
+        </span>
+      </a>"""
 
 NAV_ITEMS = [
     ("index.html", "Home"),
@@ -113,18 +129,13 @@ HEAD = """<!doctype html>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+{sprite}
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="header">
   <div class="wrap">
     <div class="header__bar">
-      <a class="brand" href="index.html">
-        {mark}
-        <span>
-          <span class="brand__name">EduPlanet</span>
-          <span class="brand__sub">Independent School</span>
-        </span>
-      </a>
+      {brand}
 
       <nav class="nav" id="site-nav" aria-label="Main">
           {nav}
@@ -151,13 +162,7 @@ FOOTER = """</main>
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <a class="brand" href="index.html">
-          {mark}
-          <span>
-            <span class="brand__name">EduPlanet</span>
-            <span class="brand__sub">Independent School</span>
-          </span>
-        </a>
+        {brand}
         <p>A registered independent school in Struandale, Gqeberha, offering Grade&nbsp;RR to Grade&nbsp;12 since 2016.</p>
       </div>
 
@@ -285,7 +290,7 @@ HOME = """
       <div class="stat"><div class="stat__value">2016</div><div class="stat__label">Year established</div></div>
       <div class="stat"><div class="stat__value">RR&ndash;12</div><div class="stat__label">Grades offered</div></div>
       <div class="stat"><div class="stat__value">CAPS</div><div class="stat__label">National curriculum</div></div>
-      <div class="stat"><div class="stat__value">200100266</div><div class="stat__label">Department of Education EMIS</div></div>
+      <div class="stat"><div class="stat__value stat__value--long">200100266</div><div class="stat__label">Department of Education EMIS</div></div>
     </div>
   </div>
 </section>
@@ -1002,10 +1007,11 @@ PAGES = {
 }
 
 FIELDS = dict(
-    site=SITE, mark=MARK, tel=TEL_DISPLAY, tel_href=TEL_HREF,
+    site=SITE, tel=TEL_DISPLAY, tel_href=TEL_HREF,
     wa=WA_DISPLAY, wa_href=WA_HREF, address=ADDRESS, maps=MAPS,
     form=APPLY_FORM, pdf=APPLY_PDF,
     icon_phone=ICON_PHONE, icon_wa=ICON_WA, head_script=HEAD_SCRIPT,
+    sprite=SPRITE, brand=BRAND,
     hero_gate=HERO_GATE,
     hours_short="Monday to Thursday 07:30 to 16:00 and Friday 07:30 to 15:00",
 )
