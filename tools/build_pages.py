@@ -119,13 +119,9 @@ HEAD = """<!doctype html>
 <meta property="og:url" content="https://eduplanet.co.za/{page}">
 <meta property="og:image" content="https://eduplanet.co.za/assets/img/hero-poster.jpg">
 {head_script}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Fonts load without blocking rendering: a slow or filtered font host must never
-     stall the page or the script that reveals its content. -->
-<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"></noscript>
+<!-- The typeface is self-hosted, so there is no third-party font request to
+     block rendering or to fail on a filtered network. -->
+<link rel="preload" href="assets/fonts/figtree-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -958,6 +954,32 @@ CONTACT = pagehead(
           <a class="btn btn--ghost" href="{maps}" target="_blank" rel="noopener">Get directions</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="band band--tint">
+  <div class="wrap">
+    <div class="section-head section-head--split reveal">
+      <div>
+        <p class="eyebrow">Find us</p>
+        <h2>1 Eveready Road, Struandale.</h2>
+      </div>
+      <p class="lede">We are on Eveready Road in Struandale, Gqeberha. Parking is on site, and reception is straight ahead as you come in.</p>
+    </div>
+
+    <figure class="map reveal">
+      <iframe
+        title="Map showing EduPlanet Independent School, 1 Eveready Road, Struandale, Gqeberha"
+        src="https://maps.google.com/maps?q=1+Eveready+Road,+Struandale,+Gqeberha,+6200&amp;z=15&amp;output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </figure>
+
+    <div class="btn-row" style="margin-top:26px">
+      <a class="btn btn--primary" href="{maps}" target="_blank" rel="noopener">Open in Google Maps</a>
+      <a class="btn btn--ghost" href="tel:{tel_href}">Call before you come</a>
     </div>
   </div>
 </section>
