@@ -1,0 +1,6 @@
+# The untouched originals are kept in git for reference but are not referenced
+# by the site, so they should not be uploaded or served.
+assets/source/
+
+# Dev-only page generator.
+tools/
