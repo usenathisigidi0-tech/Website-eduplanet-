@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Findings &mdash; Online Banking | CAT PAT Grade 12</title>
+  <meta name="description" content="Questionnaire results, graph, analysis, conclusion and recommendations for the online banking investigation.">
+  <meta name="author" content="Usenathi Sigidi">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/pat.css">
+</head>
+
+<body>
+
+<a class="skip" href="#main">Skip to the main content</a>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="home.html">
+      Online Banking
+      <span>CAT PAT &bull; Grade 12 &bull; 2026</span>
+    </a>
+
+    <nav class="nav" aria-label="Main menu">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a class="here" href="findings.html" aria-current="page">Findings</a></li>
+        <li><a href="bibliography.html">Bibliography</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Page 3 of 4</p>
+      <h1>Findings</h1>
+      <p>What the questionnaire showed about how South Africans bank online,
+         and how much they know about the risks.</p>
+    </div>
+  </div>
+
+  <!-- ====================== IMPORTANT DATA NOTICE ======================== -->
+  <section class="reveal">
+    <div class="wrap">
+      <div class="note">
+        <p><strong>Replace these figures before you hand in.</strong> The
+           numbers in the table and graph below are placeholders showing the
+           correct layout. Copy in the real totals from your Phase 2
+           spreadsheet, then update the bar widths in the graph to match. The
+           instructions for doing that are in the comments inside this file.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== RESULTS ============================== -->
+  <section class="reveal">
+    <div class="wrap">
+      <h2>Questionnaire results</h2>
+
+      <p>A questionnaire was completed by <strong>50 respondents</strong> drawn
+         from learners, family members and members of the community. Each
+         question was answered "Yes" or "No". The totals are shown below.</p>
+
+      <div class="table-scroll">
+        <table>
+          <caption>Table 2: Questionnaire responses (50 respondents)</caption>
+          <thead>
+            <tr>
+              <th scope="col">Question asked</th>
+              <th scope="col" class="num">Yes</th>
+              <th scope="col" class="num">No</th>
+              <th scope="col" class="num">% Yes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Do you use online banking or a banking app?</th>
+              <td class="num">43</td><td class="num">7</td><td class="num">86%</td>
+            </tr>
+            <tr>
+              <th scope="row">Do you bank mainly on a cellphone?</th>
+              <td class="num">39</td><td class="num">11</td><td class="num">78%</td>
+            </tr>
+            <tr>
+              <th scope="row">Have you or your household been targeted by a banking scam?</th>
+              <td class="num">27</td><td class="num">23</td><td class="num">54%</td>
+            </tr>
+            <tr>
+              <th scope="row">Do you know what "phishing" means?</th>
+              <td class="num">21</td><td class="num">29</td><td class="num">42%</td>
+            </tr>
+            <tr>
+              <th scope="row">Would you give an OTP to someone claiming to be your bank?</th>
+              <td class="num">6</td><td class="num">44</td><td class="num">12%</td>
+            </tr>
+            <tr>
+              <th scope="row">Do you check your bank statement every month?</th>
+              <td class="num">24</td><td class="num">26</td><td class="num">48%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================== GRAPH =============================== -->
+  <section class="reveal">
+    <div class="wrap">
+      <h2>Graph of the results</h2>
+
+      <p>The same results shown as a bar graph, so the pattern is easier to
+         see at a glance.</p>
+
+      <div class="chart">
+        <!--
+          HOW TO UPDATE THIS GRAPH
+          ------------------------
+          Each bar is one <rect>. The scale is: 400 pixels = 100%.
+          So the bar width is:   width = percentage x 4
+          Examples:  86% -> 344      50% -> 200      12% -> 48
+          Change the "width" number on the bar AND the number in the
+          <text> label at the end of that row. Nothing else needs to change.
+        -->
+        <svg viewBox="0 0 600 290" role="img"
+             aria-labelledby="chartTitle chartDesc">
+          <title id="chartTitle">Percentage of respondents answering Yes to each question</title>
+          <desc id="chartDesc">Horizontal bar graph. Uses online banking 86 percent,
+            banks on a cellphone 78 percent, targeted by a scam 54 percent, knows what
+            phishing means 42 percent, would give out an OTP 12 percent, checks
+            statements monthly 48 percent.</desc>
+
+          <!-- grid lines at 0, 25, 50, 75 and 100 percent -->
+          <g stroke="#cfdee9" stroke-width="1">
+            <line x1="180" y1="18" x2="180" y2="254"/>
+            <line x1="280" y1="18" x2="280" y2="254"/>
+            <line x1="380" y1="18" x2="380" y2="254"/>
+            <line x1="480" y1="18" x2="480" y2="254"/>
+            <line x1="580" y1="18" x2="580" y2="254"/>
+          </g>
+
+          <!-- the bars -->
+          <g>
+            <rect x="180" y="26"  width="344" height="22" fill="#219ebc" rx="3"/>
+            <rect x="180" y="66"  width="312" height="22" fill="#219ebc" rx="3"/>
+            <rect x="180" y="106" width="216" height="22" fill="#fb8500" rx="3"/>
+            <rect x="180" y="146" width="168" height="22" fill="#fb8500" rx="3"/>
+            <rect x="180" y="186" width="48"  height="22" fill="#fb8500" rx="3"/>
+            <rect x="180" y="226" width="192" height="22" fill="#219ebc" rx="3"/>
+          </g>
+
+          <!-- question labels down the left -->
+          <g font-family="Segoe UI, Verdana, sans-serif" font-size="12"
+             fill="#12283a" text-anchor="end">
+            <text x="170" y="42">Uses online banking</text>
+            <text x="170" y="82">Banks on a cellphone</text>
+            <text x="170" y="122">Targeted by a scam</text>
+            <text x="170" y="162">Knows what phishing is</text>
+            <text x="170" y="202">Would give out an OTP</text>
+            <text x="170" y="242">Checks statements monthly</text>
+          </g>
+
+          <!-- value labels at the end of each bar -->
+          <g font-family="Segoe UI, Verdana, sans-serif" font-size="12"
+             font-weight="700" fill="#023047">
+            <text x="532" y="42">86%</text>
+            <text x="500" y="82">78%</text>
+            <text x="404" y="122">54%</text>
+            <text x="356" y="162">42%</text>
+            <text x="236" y="202">12%</text>
+            <text x="380" y="242">48%</text>
+          </g>
+
+          <!-- the scale along the bottom -->
+          <g font-family="Segoe UI, Verdana, sans-serif" font-size="11"
+             fill="#4a6273" text-anchor="middle">
+            <text x="180" y="272">0%</text>
+            <text x="280" y="272">25%</text>
+            <text x="380" y="272">50%</text>
+            <text x="480" y="272">75%</text>
+            <text x="580" y="272">100%</text>
+          </g>
+        </svg>
+      </div>
+      <p><small>Graph 1: Percentage of respondents who answered "Yes" to each
+         question. Orange bars mark the answers that point to a security
+         weakness.</small></p>
+    </div>
+  </section>
+
+  <!-- ============================= ANALYSIS ============================== -->
+  <section class="reveal">
+    <div class="wrap">
+      <div class="panel">
+        <h2>Analysis of the results</h2>
+
+        <p><strong>Adoption is almost universal, and it is mobile.</strong>
+           With 86% of respondents banking online and 78% doing it mainly on a
+           cellphone, digital banking is clearly no longer optional or unusual.
+           The phone, not the computer, is the bank branch.</p>
+
+        <p><strong>Exposure to crime is common.</strong> More than half of the
+           households surveyed had already been targeted by some form of
+           banking scam. This is not a rare event happening to other people.</p>
+
+        <p><strong>Awareness has not kept up with adoption.</strong> This is the
+           most important result. Twice as many people bank online as can
+           explain what phishing is, and fewer than half check their statements
+           every month. A user who cannot recognise a phishing message and does
+           not read their statement may be defrauded without noticing.</p>
+
+        <p><strong>The basic rule is understood, but not by everyone.</strong>
+           88% correctly said they would not hand over an OTP. That is
+           encouraging &mdash; but the remaining 12% is enough for criminals to
+           work with, and vishing attacks exist precisely because that number is
+           never zero.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CONCLUSION ============================= -->
+  <section class="reveal">
+    <div class="wrap">
+      <h2>Conclusion</h2>
+
+      <p>Online banking has clearly improved convenience for South African
+         consumers. It saves them travel, time and money, it works outside
+         office hours, and it lets them react instantly when something goes
+         wrong. The respondents have adopted it almost completely.</p>
+
+      <p>Its effect on security, however, is two-sided. The technology itself is
+         strongly protected, but responsibility for the weakest point &mdash;
+         the customer &mdash; has been passed to the customer. The results show
+         a gap between how many people bank online and how many understand the
+         fraud aimed at them. That gap, not the banks' systems, is where the
+         real risk sits.</p>
+
+      <p>The focus question can therefore be answered as follows: <strong>online
+         banking has greatly increased convenience for South African consumers,
+         while shifting the burden of security onto users who are, on this
+         evidence, not yet well enough informed to carry it.</strong></p>
+    </div>
+  </section>
+
+  <!-- ========================= RECOMMENDATIONS =========================== -->
+  <section class="reveal">
+    <div class="wrap">
+      <h2>Recommendations</h2>
+
+      <ol class="steps">
+        <li><strong>Banks</strong> should send short, plain-language fraud
+            warnings inside the app itself, where every user will see them,
+            rather than only on a website.</li>
+        <li><strong>Schools</strong> should cover digital banking safety in
+            Grade 10&ndash;12 CAT and Life Orientation, since most learners will
+            open an account within a year or two of leaving school.</li>
+        <li><strong>Consumers</strong> should switch on transaction
+            notifications and read their statements monthly &mdash; the two
+            cheapest habits that catch fraud early.</li>
+        <li><strong>Cellphone networks</strong> should tighten SIM-swap
+            verification, since a SIM swap defeats the OTP system entirely.</li>
+      </ol>
+
+      <p><a class="btn" href="bibliography.html">See the sources used</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Online Banking &mdash; Computer Applications Technology PAT</strong></p>
+    <p>Grade 12 &bull; 2026 &bull; Compiled by Usenathi Sigidi</p>
+    <p>Questions about this investigation?
+       <a href="mailto:usenathi.pat@example.com?subject=CAT%20PAT%20-%20Online%20Banking">Send an e-mail</a></p>
+  </div>
+</footer>
+
+<button id="toTop" type="button" title="Back to top" aria-label="Back to top">&uarr;</button>
+
+<script src="js/pat.js"></script>
+</body>
+</html>
