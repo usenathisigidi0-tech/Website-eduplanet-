@@ -71,9 +71,7 @@ fallback if the request fails.
 
 Drop `yourclip.mp4` into `assets/video/` and a `yourclip-poster.jpg` into
 `assets/img/`, then copy one `<article class="reel">` block in `#motion` and
-point it at the new files. There's a comment marking the spot — it's where the
-three perfume commercials go (this session's network couldn't reach
-`mcp.higgsfield.ai` or the CloudFront URL to download them).
+point it at the new files. Add it before the `.reelcta` tile that closes the grid.
 
 Poster frames were generated with:
 
