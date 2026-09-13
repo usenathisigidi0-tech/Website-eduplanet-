@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en" data-track="both">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UAA Agency — Websites &amp; AI Receptionists</title>
+<meta name="description" content="UAA Agency builds the website that answers the question and the AI receptionist that answers the call. Custom sites, 24/7 AI phone answering, and motion design for growing businesses.">
+<meta name="theme-color" content="#05070f">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="UAA Agency — Websites &amp; AI Receptionists">
+<meta property="og:description" content="The site that answers the question. The receptionist that answers the call. Miss nothing.">
+<meta property="og:image" content="assets/img/reel-globe-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preload" href="assets/fonts/bricolage-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/figtree-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/uaa.css">
+
+<script>
+/* Resolve the visitor's track before first paint so the page never flashes
+   the wrong offer. The full behaviour lives in assets/js/uaa.js. */
+(function(){
+  try{
+    var q = new URLSearchParams(location.search).get('track');
+    var t = (['web','ai','both'].indexOf(q) > -1) ? q : localStorage.getItem('uaa.track');
+    if(['web','ai','both'].indexOf(t) > -1){
+      document.documentElement.setAttribute('data-track', t);
+    }else{
+      document.documentElement.className += ' is-gated';
+    }
+  }catch(e){}
+})();
+</script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ========================================================================
+     THE GATE — the visitor tells us why they're here before the site resolves
+     ===================================================================== -->
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gate__bg" aria-hidden="true">
+    <video src="assets/video/reel-globe.mp4" muted loop playsinline preload="auto" poster="assets/img/reel-globe-poster.jpg"></video>
+  </div>
+
+  <div class="gate__inner" tabindex="-1">
+    <img class="gate__mark" src="assets/img/uaa-mark.svg" alt="" width="52" height="52">
+    <p class="kicker" style="justify-content:center">UAA Agency</p>
+    <h1 id="gate-title">What brings you <span class="grad">here</span>?</h1>
+    <p class="gate__sub">Pick one and the whole site rearranges around it — the work, the pricing, the questions. Nothing you don't need.</p>
+
+    <div class="gate__cards">
+      <button class="choice" data-choice="web" type="button">
+        <span class="choice__tag">Build</span>
+        <span class="choice__ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="16" rx="2.5"/><path d="M2.5 8.5h19M6 6h.01M8.6 6h.01"/></svg>
+        </span>
+        <span class="ch-title">I need a website</span>
+        <span class="ch-desc">A new site, a rebuild, an online shop or a landing page that actually converts.</span>
+        <span class="choice__go">Show me websites <span aria-hidden="true">→</span></span>
+      </button>
+
+      <button class="choice" data-choice="ai" type="button">
+        <span class="choice__tag">Answer</span>
+        <span class="choice__ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 2.8h2.2l1.6 4-1.9 1.3a12.5 12.5 0 0 0 5.5 5.5l1.3-1.9 4 1.6v2.2a2.5 2.5 0 0 1-2.7 2.5A16.6 16.6 0 0 1 4 5.5 2.5 2.5 0 0 1 6.5 2.8Z"/><path d="M15.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/></svg>
+        </span>
+        <span class="ch-title">I need calls answered</span>
+        <span class="ch-desc">An AI receptionist that picks up 24/7, books the job and never puts anyone on hold.</span>
+        <span class="choice__go">Show me the receptionist <span aria-hidden="true">→</span></span>
+      </button>
+
+      <button class="choice" data-choice="both" type="button">
+        <span class="choice__tag">Recommended</span>
+        <span class="choice__ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19Z"/><path d="M2.5 12h19M12 2.5a15 15 0 0 1 0 19 15 15 0 0 1 0-19Z"/></svg>
+        </span>
+        <span class="ch-title">Both — the full front desk</span>
+        <span class="ch-desc">The site and the receptionist wired together, so an enquiry never falls between them.</span>
+        <span class="choice__go">Show me everything <span aria-hidden="true">→</span></span>
+      </button>
+    </div>
+
+    <p class="gate__foot">Not sure yet? <button type="button" id="gate-skip">Show me everything</button> — you can switch at any time from the menu.</p>
+  </div>
+</div>
+
+<!-- ===================================== HEADER ===================================== -->
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="brand" href="#top">
+      <img src="assets/img/uaa-mark.svg" alt="" width="32" height="32">
+      UAA <span>Agency</span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#websites" data-show="web both">Websites</a>
+      <a href="#receptionist" data-show="ai both">Receptionist</a>
+      <a href="#motion">Motion</a>
+      <a href="#pricing-web" data-show="web both">Pricing</a>
+      <a href="#pricing-ai" data-show="ai">Pricing</a>
+      <a href="#bundle" data-show="both">Bundle</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn--primary btn--sm" href="#quote">Book a quote <span class="arr" aria-hidden="true">→</span></a>
+    </nav>
+
+    <div class="switch" role="group" aria-label="What you're here for">
+      <button type="button" data-track="web" aria-pressed="false">Web</button>
+      <button type="button" data-track="ai" aria-pressed="false">AI</button>
+      <button type="button" data-track="both" aria-pressed="true">Both</button>
+    </div>
+
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-label="Menu" aria-controls="nav"><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ===================================== HERO ===================================== -->
+<section class="hero">
+  <div class="hero__vid" aria-hidden="true">
+    <video src="assets/video/reel-globe.mp4" data-ambient muted loop playsinline preload="auto" poster="assets/img/reel-globe-poster.jpg"></video>
+  </div>
+
+  <div class="wrap hero__in">
+    <div class="hero__copy">
+      <p class="kicker rv in">Gqeberha · South Africa · Working worldwide</p>
+
+      <h1 class="rv">
+        <span data-show="both">Your next customer<br>won't call <span class="grad">twice</span>.</span>
+        <span data-show="web">Most websites are brochures.<br>Yours should <span class="grad">close</span>.</span>
+        <span data-show="ai">It answers on the first ring.<br><span class="grad">Every</span> time.</span>
+      </h1>
+
+      <p class="lede rv rv-d1">
+        <span data-show="both">One front desk for your business: a website that answers the question and an AI receptionist that answers the call. Nothing lands in a voicemail box at seven on a Friday.</span>
+        <span data-show="web">Custom-built sites that load in under a second, look like the brand you wish you had, and turn quiet traffic into booked work.</span>
+        <span data-show="ai">An AI receptionist that picks up 24/7, books the job, screens the time-wasters and drops the transcript in your inbox before the caller has put the phone down.</span>
+      </p>
+
+      <div class="hero__cta rv rv-d2">
+        <a class="btn btn--primary btn--lg" href="#quote">Book a quote <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost btn--lg" href="#motion" data-show="both">See the work</a>
+        <a class="btn btn--ghost btn--lg" href="#websites" data-show="web">See the work</a>
+        <a class="btn btn--ghost btn--lg" href="#demo" data-show="ai">Hear it work</a>
+      </div>
+
+      <div class="hero__proof rv rv-d3">
+        <div class="proof"><b>&lt;1s</b><span>Load target</span></div>
+        <div class="proof"><b>24/7</b><span>Calls answered</span></div>
+        <div class="proof"><b>14 days</b><span>Typical launch</span></div>
+        <div class="proof"><b>100%</b><span>Built by hand</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scrollcue" aria-hidden="true"><i></i>Scroll</div>
+</section>
+
+<!-- ===================================== MARQUEE ===================================== -->
+<div class="marq" aria-hidden="true">
+  <div class="marq__t">
+    <span>Custom websites</span><span>AI receptionists</span><span>Motion design</span><span>E-commerce</span><span>Booking systems</span><span>Brand identity</span><span>Landing pages</span><span>WhatsApp automation</span>
+    <span>Custom websites</span><span>AI receptionists</span><span>Motion design</span><span>E-commerce</span><span>Booking systems</span><span>Brand identity</span><span>Landing pages</span><span>WhatsApp automation</span>
+  </div>
+</div>
+
+<!-- ===================================== THE HOOK ===================================== -->
+<section class="band hook">
+  <div class="orb" style="width:520px;height:520px;background:var(--accent-glow);top:-160px;left:-180px" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="kicker rv">The problem</p>
+    <p class="hook__quote rv rv-d1" style="margin-top:1.2rem">
+      Every business loses customers in the five minutes <span class="grad">nobody answers</span>.
+    </p>
+    <p class="lede rv rv-d2" style="margin-top:1.6rem">
+      Not to a better product. Not to a lower price. To a ringing phone, a contact form nobody read, and a competitor who picked up first. We close both gaps.
+    </p>
+
+    <div class="grid g-3 stats">
+      <div class="stat rv"><b>62%</b><p>of calls to small businesses go unanswered during a normal working week.</p></div>
+      <div class="stat rv rv-d1"><b>3s</b><p>is all it takes — over half of mobile visitors leave a site slower than that.</p></div>
+      <div class="stat rv rv-d2"><b>78%</b><p>of callers hire whoever responds first, not whoever is best.</p></div>
+    </div>
+    <p class="tiny rv" style="margin-top:18px">Illustrative industry figures — swap in your own verified sources before launch.</p>
+  </div>
+</section>
+
+<!-- ========================================================================
+     WEBSITES TRACK
+     ===================================================================== -->
+<section class="band sectionlead" id="websites" data-show="web both">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <p class="kicker rv">Websites</p>
+        <h2 class="rv rv-d1" style="margin:.9rem 0 1.1rem">Built like a product,<br>not a template.</h2>
+        <p class="lede rv rv-d2">
+          Every site we ship is written, designed and coded from scratch around one job: turning the person reading it into the person paying you. No page builders, no bloat, no theme you've seen on four other businesses in your street.
+        </p>
+
+        <ul class="feats rv rv-d3">
+          <li><span class="n">01</span><div><b>Conversion-first structure</b><p>We map the questions a buyer asks in order, then answer them in that order. The page does the selling.</p></div></li>
+          <li><span class="n">02</span><div><b>Hand-coded and fast</b><p>Sub-second loads, perfect Lighthouse scores, and hosting that costs next to nothing to run.</p></div></li>
+          <li><span class="n">03</span><div><b>Motion that means something</b><p>Cinematic video and micro-interaction used where it earns attention — never as decoration.</p></div></li>
+          <li><span class="n">04</span><div><b>You can edit it</b><p>A simple CMS for the bits that change. No calling us to fix a typo.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="sectionlead__vid rv rv-d2">
+        <video src="assets/video/reel-hypergarage.mp4" data-track-video data-ambient muted loop playsinline preload="metadata" poster="assets/img/reel-hypergarage-poster.jpg"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="band band--tight" data-show="web both">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">Selected work</p>
+      <h2 class="rv rv-d1">Concepts we've built<br>to prove a point.</h2>
+      <p class="lede rv rv-d2">Interface studies and motion concepts from our own studio — the level of craft your build gets. Hover to play.</p>
+    </div>
+
+    <div class="grid g-3 cases">
+      <article class="case rv" data-hoverplay tabindex="0">
+        <img src="assets/img/reel-hypergarage-poster.jpg" alt="Hyper Garage — a dark automotive retail interface showing a Ferrari Enzo" loading="lazy">
+        <video src="assets/video/reel-hypergarage.mp4" muted loop playsinline preload="none"></video>
+        <span class="case__scrim"></span>
+        <span class="case__play"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"/></svg></span>
+        <div class="case__body">
+          <span class="case__tag">Automotive retail · Concept</span>
+          <h3>Hyper Garage</h3>
+          <p>A configurator-style showroom where the spec sheet reads like a story.</p>
+        </div>
+      </article>
+
+      <article class="case rv rv-d1" data-hoverplay tabindex="0">
+        <img src="assets/img/reel-museum-poster.jpg" alt="Museum of Ancient Art — an editorial dark-mode culture site" loading="lazy">
+        <video src="assets/video/reel-museum.mp4" muted loop playsinline preload="none"></video>
+        <span class="case__scrim"></span>
+        <span class="case__play"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"/></svg></span>
+        <div class="case__body">
+          <span class="case__tag">Arts &amp; culture · Concept</span>
+          <h3>Museum of Ancient Art</h3>
+          <p>Editorial typography and lighting used to make a collection feel priceless.</p>
+        </div>
+      </article>
+
+      <article class="case rv rv-d2" data-hoverplay tabindex="0">
+        <img src="assets/img/reel-sneaker-poster.jpg" alt="Planet — a bold sneaker e-commerce interface with colour variants" loading="lazy">
+        <video src="assets/video/reel-sneaker.mp4" muted loop playsinline preload="none"></video>
+        <span class="case__scrim"></span>
+        <span class="case__play"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"/></svg></span>
+        <div class="case__body">
+          <span class="case__tag">E-commerce · Concept</span>
+          <h3>Planet</h3>
+          <p>Variant switching that recolours the entire page — product choice as theatre.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WEBSITE PRICING -->
+<section class="band" id="pricing-web" data-show="web both">
+  <div class="wrap">
+    <div class="pricehead">
+      <div class="head" style="margin:0">
+        <p class="kicker rv">Website pricing</p>
+        <h2 class="rv rv-d1" style="margin:.9rem 0 .8rem">Fixed price. No surprises.</h2>
+        <p class="lede rv rv-d2">One quote, agreed before we start. Half up front, half on launch.</p>
+      </div>
+    </div>
+
+    <div class="grid g-3 tiers">
+      <div class="tier rv">
+        <p class="tier__name">Launch</p>
+        <p class="tier__from">Once-off from</p>
+        <p class="tier__price">R7 500</p>
+        <p class="tier__for">For a new business that needs to look real, fast.</p>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>One-page or 3-page site</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Mobile-first, hand-coded</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Contact form + WhatsApp button</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Google Business + basic SEO</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Live in 7–10 days</li>
+        </ul>
+        <a class="btn btn--ghost" href="#quote" data-quote-need="web">Get this quoted</a>
+      </div>
+
+      <div class="tier tier--hot rv rv-d1">
+        <p class="tier__name">Business</p>
+        <p class="tier__from">Once-off from</p>
+        <p class="tier__price">R18 500</p>
+        <p class="tier__for">For an established business that's outgrown its old site.</p>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>5–8 custom pages</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Copywriting included</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>CMS so you can edit it yourself</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Booking or enquiry flow</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Analytics + 30 days of tuning</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Live in 2–3 weeks</li>
+        </ul>
+        <a class="btn btn--primary" href="#quote" data-quote-need="web">Get this quoted <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="tier rv rv-d2">
+        <p class="tier__name">Signature</p>
+        <p class="tier__from">Once-off from</p>
+        <p class="tier__price">R35 000</p>
+        <p class="tier__for">For brands that want the site people screenshot.</p>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Unlimited pages, custom everything</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Bespoke motion &amp; scroll design</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>E-commerce or web app build</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Brand direction + art direction</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Live in 4–8 weeks</li>
+        </ul>
+        <a class="btn btn--ghost" href="#quote" data-quote-need="web">Get this quoted</a>
+      </div>
+    </div>
+
+    <div class="pricenote rv">
+      <span class="chip">Care plan R650/mo</span>
+      <p class="tiny" style="margin:0">Hosting, SSL, backups, security patches, uptime monitoring and an hour of changes each month. Optional, cancel anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     AI RECEPTIONIST TRACK
+     ===================================================================== -->
+<section class="band sectionlead" id="receptionist" data-show="ai both">
+  <div class="orb" style="width:560px;height:560px;background:var(--accent-glow);top:10%;right:-220px" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="split split--rev">
+      <div>
+        <p class="kicker rv">AI receptionist</p>
+        <h2 class="rv rv-d1" style="margin:.9rem 0 1.1rem">The employee that<br>never goes to lunch.</h2>
+        <p class="lede rv rv-d2">
+          We train a voice agent on your business — your services, your prices, your area, your calendar — then point your number at it. It answers in two rings, sounds like a person, and books the work while you're under a car or on a roof.
+        </p>
+
+        <ul class="feats rv rv-d3">
+          <li><span class="n">01</span><div><b>Answers 24/7, including public holidays</b><p>After hours, during load-shedding, mid-rush. No hold music, no queue.</p></div></li>
+          <li><span class="n">02</span><div><b>Books straight into your calendar</b><p>Checks availability, offers real slots, confirms by SMS and blocks the time.</p></div></li>
+          <li><span class="n">03</span><div><b>Qualifies before it books</b><p>Asks your screening questions so a site visit is never wasted on a tyre-kicker.</p></div></li>
+          <li><span class="n">04</span><div><b>Transcript and summary in your inbox</b><p>Every call written up, tagged urgent or not, with the caller's number. Nothing gets lost.</p></div></li>
+          <li><span class="n">05</span><div><b>Hands off to a human when it should</b><p>Complaints, big jobs, anything unusual — transferred or escalated on your rules.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="sectionlead__vid rv rv-d2" style="aspect-ratio:9/16;max-width:420px;margin-inline:auto">
+        <video src="assets/video/reel-ai-hands.mp4" data-track-video data-ambient muted loop playsinline preload="metadata" poster="assets/img/reel-ai-hands-poster.jpg"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE CALL DEMO -->
+<section class="band band--tight" id="demo" data-show="ai both">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <p class="kicker rv">A call, start to finish</p>
+        <h2 class="rv rv-d1" style="margin:.9rem 0 1.1rem">This is what your<br>customer hears.</h2>
+        <p class="lede rv rv-d2">No menus. No "press one for accounts." A real conversation that ends with a booking in the diary — in about forty seconds.</p>
+        <div class="hero__cta rv rv-d3" style="margin-top:28px">
+          <a class="btn btn--primary" href="#quote" data-quote-need="ai">Book a live demo <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="callcard rv rv-d2">
+        <div class="callcard__bar">
+          <span class="callcard__dot" aria-hidden="true"></span>
+          <b>Incoming call · +27 ••• ••• 4118</b>
+          <span class="t" id="call-timer">00:00</span>
+        </div>
+        <div class="callcard__body" id="call-body" role="log" aria-label="Example call transcript"></div>
+        <div class="callcard__foot">
+          <span class="chip">Booked 14:30</span>
+          <span class="chip">SMS sent</span>
+          <span class="chip">Tagged urgent</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI PRICING -->
+<section class="band" id="pricing-ai" data-show="ai both">
+  <div class="wrap">
+    <div class="pricehead">
+      <div class="head" style="margin:0">
+        <p class="kicker rv">Receptionist pricing</p>
+        <h2 class="rv rv-d1" style="margin:.9rem 0 .8rem">Cheaper than a missed job.</h2>
+        <p class="lede rv rv-d2">Monthly, no lock-in. One-time setup of R3 500 covers training, number routing and your first two weeks of tuning — waived on annual plans.</p>
+      </div>
+    </div>
+
+    <div class="grid g-3 tiers">
+      <div class="tier rv">
+        <p class="tier__name">Starter</p>
+        <p class="tier__from">Per month</p>
+        <p class="tier__price">R1 850<small>/mo</small></p>
+        <p class="tier__for">For a one-van operation that keeps missing the phone.</p>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>200 answered minutes</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>One number, 24/7 answering</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>FAQ, hours, directions, pricing</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Message-taking + email summaries</li>
+        </ul>
+        <a class="btn btn--ghost" href="#quote" data-quote-need="ai">Get this quoted</a>
+      </div>
+
+      <div class="tier tier--hot rv rv-d1">
+        <p class="tier__name">Pro</p>
+        <p class="tier__from">Per month</p>
+        <p class="tier__price">R3 950<small>/mo</small></p>
+        <p class="tier__for">For a team that lives off its diary.</p>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>600 answered minutes</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Live calendar booking + SMS confirms</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>WhatsApp answering as well as phone</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Lead qualification + call transfer</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Custom voice &amp; CRM handoff</li>
+        </ul>
+        <a class="btn btn--primary" href="#quote" data-quote-need="ai">Get this quoted <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="tier rv rv-d2">
+        <p class="tier__name">Scale</p>
+        <p class="tier__from">Per month from</p>
+        <p class="tier__price">R7 500<small>/mo</small></p>
+        <p class="tier__for">For multi-branch operations and high call volume.</p>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>2 000+ minutes, pooled</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Multiple numbers &amp; locations</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>English, Afrikaans, isiXhosa, isiZulu</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>API + workflow integration</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Named account manager</li>
+        </ul>
+        <a class="btn btn--ghost" href="#quote" data-quote-need="ai">Get this quoted</a>
+      </div>
+    </div>
+
+    <div class="pricenote rv">
+      <span class="chip">Extra minutes R4.50</span>
+      <p class="tiny" style="margin:0">Minutes are counted on answered calls only. Go over and you're billed per minute — never cut off mid-conversation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     BUNDLE — only when the visitor chose both
+     ===================================================================== -->
+<section class="band" id="bundle" data-show="both">
+  <div class="wrap">
+    <div class="bundle rv">
+      <span class="bundle__glow" aria-hidden="true"></span>
+      <div class="bundle__in">
+        <div>
+          <span class="bundle__save">Save R4 350 in year one</span>
+          <h2 style="margin:1.1rem 0 1rem">The Full Front Desk</h2>
+          <p class="lede" style="max-width:52ch">
+            The site and the receptionist built as one system. Enquiries from the website land in the same inbox as the calls, the receptionist quotes the same prices the site does, and every lead is tagged, timed and followed up. One supplier, one number to call, nothing falling between two systems.
+          </p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Everything in the Business website tier</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Everything in the Pro receptionist plan</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Shared lead inbox + one weekly report</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Setup fee and first month's care plan waived</li>
+          </ul>
+        </div>
+
+        <div class="bundle__box">
+          <p class="tier__from">Build, once-off</p>
+          <p class="tier__price" style="justify-content:center">R21 500</p>
+          <p class="tiny" style="margin:.6rem 0 1.4rem">then</p>
+          <p class="tier__price" style="justify-content:center">R3 200<small>/mo</small></p>
+          <p class="tier__for" style="margin-top:1rem">Everything running, hosted and answered.</p>
+          <a class="btn btn--primary btn--lg" href="#quote" data-quote-need="both" style="width:100%">Book a quote <span class="arr" aria-hidden="true">→</span></a>
+          <p class="tiny" style="margin-top:14px">No lock-in on the monthly. Cancel with 30 days' notice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     MOTION DESIGN — always on
+     ===================================================================== -->
+<section class="band" id="motion">
+  <div class="orb" style="width:480px;height:480px;background:var(--accent-glow);bottom:-160px;left:-140px" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">Motion design</p>
+      <h2 class="rv rv-d1" style="margin:.9rem 0 .9rem">Things that move<br>get remembered.</h2>
+      <p class="lede rv rv-d2">
+        Scroll-stopping spots for social, hero films for your site, product animation and title work. Made in-house — the same studio that builds the sites, so the motion and the page are one piece. Tap any tile for sound.
+      </p>
+    </div>
+
+    <div class="grid g-4 reelgrid">
+      <article class="reel rv" data-hoverplay tabindex="0">
+        <img src="assets/img/reel-globe-poster.jpg" alt="A dotted globe rotating against black" loading="lazy">
+        <video src="assets/video/reel-globe.mp4" muted loop playsinline preload="none"></video>
+        <button class="reel__sound" data-sound type="button" aria-pressed="false" aria-label="Toggle sound">
+          <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="m16.5 9.5 5 5m0-5-5 5"/></svg>
+          <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" hidden><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+        </button>
+        <div class="reel__meta"><b>Signal</b><span>Title sequence · 13s</span></div>
+      </article>
+
+      <article class="reel rv rv-d1" data-hoverplay tabindex="0">
+        <img src="assets/img/reel-hypergarage-poster.jpg" alt="A Ferrari Enzo interface walkthrough in red and black" loading="lazy">
+        <video src="assets/video/reel-hypergarage.mp4" muted loop playsinline preload="none"></video>
+        <button class="reel__sound" data-sound type="button" aria-pressed="false" aria-label="Toggle sound">
+          <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="m16.5 9.5 5 5m0-5-5 5"/></svg>
+          <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" hidden><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+        </button>
+        <div class="reel__meta"><b>Hyper Garage</b><span>Interface film · 12s</span></div>
+      </article>
+
+      <article class="reel rv rv-d2" data-hoverplay tabindex="0">
+        <img src="assets/img/reel-museum-poster.jpg" alt="A dark museum website concept with classical sculpture" loading="lazy">
+        <video src="assets/video/reel-museum.mp4" muted loop playsinline preload="none"></video>
+        <button class="reel__sound" data-sound type="button" aria-pressed="false" aria-label="Toggle sound">
+          <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="m16.5 9.5 5 5m0-5-5 5"/></svg>
+          <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" hidden><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+        </button>
+        <div class="reel__meta"><b>Ancient Art</b><span>Editorial motion · 12s</span></div>
+      </article>
+
+      <article class="reel rv rv-d3" data-hoverplay tabindex="0">
+        <img src="assets/img/reel-sneaker-poster.jpg" alt="A sneaker e-commerce concept cycling through colourways" loading="lazy">
+        <video src="assets/video/reel-sneaker.mp4" muted loop playsinline preload="none"></video>
+        <button class="reel__sound" data-sound type="button" aria-pressed="false" aria-label="Toggle sound">
+          <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="m16.5 9.5 5 5m0-5-5 5"/></svg>
+          <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" hidden><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+        </button>
+        <div class="reel__meta"><b>Planet</b><span>Product spot · 10s</span></div>
+      </article>
+
+      <article class="reel reel--tall rv" data-hoverplay tabindex="0">
+        <img src="assets/img/reel-ai-hands-poster.jpg" alt="A human hand and a robotic hand meeting over a glowing globe" loading="lazy">
+        <video src="assets/video/reel-ai-hands.mp4" muted loop playsinline preload="none"></video>
+        <button class="reel__sound" data-sound type="button" aria-pressed="false" aria-label="Toggle sound">
+          <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="m16.5 9.5 5 5m0-5-5 5"/></svg>
+          <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" hidden><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+        </button>
+        <div class="reel__meta"><b>Contact</b><span>Vertical social spot · 8s</span></div>
+      </article>
+
+      <!-- SLOT: drop perfume-kinetic.mp4 / perfume-surreal.mp4 / perfume-cinematic.mp4
+           into assets/video/ plus matching -poster.jpg files, then copy an
+           <article class="reel"> block above and point it at them. -->
+
+      <div class="reelcta rv rv-d1">
+        <div>
+          <p class="kicker" style="justify-content:center">Motion from R4 500</p>
+          <h3>Want a spot like these<br>for your product?</h3>
+          <p class="tiny" style="margin-bottom:1.2rem">15-second social cut, three aspect ratios, licensed music, two rounds of revisions.</p>
+          <a class="btn btn--primary btn--sm" href="#quote">Brief us <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================== PROCESS ===================================== -->
+<section class="band" id="process">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">How it works</p>
+      <h2 class="rv rv-d1" style="margin:.9rem 0 .9rem">Four steps. No mystery.</h2>
+      <p class="lede rv rv-d2">You'll always know what's happening, what it costs and when it's done.</p>
+    </div>
+
+    <div class="grid g-4 steps">
+      <div class="step rv"><em>Week 0</em><b>Talk</b><p>A 20-minute call. What you sell, who buys it, what you're losing now. You get a fixed quote within 48 hours.</p></div>
+      <div class="step rv rv-d1"><em>Week 1</em><b>Design</b><p>Structure, copy and look agreed before a line of code. You see it as a real page, not a flat mockup.</p></div>
+      <div class="step rv rv-d2"><em>Week 2–3</em><b>Build</b><p>We code it, wire the forms, train the receptionist on your business and test it on real devices and real calls.</p></div>
+      <div class="step rv rv-d3"><em>Week 3+</em><b>Launch &amp; tune</b><p>Live, measured and adjusted. We watch the first 30 days of traffic and calls, then fix what the data says to fix.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================== FAQ ===================================== -->
+<section class="band" id="faq">
+  <div class="wrap">
+    <div class="head">
+      <p class="kicker rv">Questions</p>
+      <h2 class="rv rv-d1" style="margin:.9rem 0 0">The ones everybody asks.</h2>
+    </div>
+
+    <div class="faq rv rv-d2">
+      <details class="qa" data-show="web both"><summary>Who owns the website when it's done?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>You do — the code, the domain, the content, all of it. We hand over the repository and the hosting account. If you ever leave us, nothing breaks and nothing is held hostage.</p></div></details>
+
+      <details class="qa" data-show="web both"><summary>Can I update the site myself?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Yes. From the Business tier up we wire in a simple editor for the things that change — prices, staff, gallery, opening hours. If you can use WhatsApp you can use it.</p></div></details>
+
+      <details class="qa" data-show="web both"><summary>What if I already have a site?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>We'll audit it free and tell you honestly whether it needs a rebuild or just a better front page. Sometimes the cheapest fix is not a new site, and we'll say so.</p></div></details>
+
+      <details class="qa" data-show="ai both"><summary>Will callers know it's an AI?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Most don't notice, but we never pretend. The agent identifies itself as your virtual receptionist if asked, and we recommend it does so up front — it's the honest thing to do and it costs you nothing in bookings.</p></div></details>
+
+      <details class="qa" data-show="ai both"><summary>What happens if it can't answer something?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>It takes a message and flags it, or transfers the call to a real person — you decide the rules. It never guesses at a price or a promise it hasn't been given.</p></div></details>
+
+      <details class="qa" data-show="ai both"><summary>Do I keep my existing number?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Yes. We forward your current number to the agent — usually only on no-answer or after hours, so your team still picks up first when they can. Nothing on your printed material changes.</p></div></details>
+
+      <details class="qa"><summary>How long until I see it working?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>A Launch site goes live in 7–10 days. A receptionist is answering calls within 5 working days of us getting your service list. The Full Front Desk runs both in parallel — about three weeks end to end.</p></div></details>
+
+      <details class="qa"><summary>What do you need from me to start?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Your logo if you have one, a list of what you sell and what it costs, and half an hour of your time. We write the copy, shoot or source the visuals and handle the rest.</p></div></details>
+
+      <details class="qa"><summary>Do you work outside South Africa?<span class="ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Yes — the work is remote by nature. We quote in Rand by default and in USD, GBP or EUR on request.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================== QUOTE ===================================== -->
+<section class="band quote" id="quote">
+  <div class="orb" style="width:600px;height:600px;background:var(--accent-glow);top:-120px;right:-240px" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="head" style="max-width:56ch">
+      <p class="kicker rv">Book a quote</p>
+      <h2 class="rv rv-d1" style="margin:.9rem 0 .9rem">Four questions.<br>A real price<br>in 48 hours.</h2>
+      <p class="lede rv rv-d2">No discovery-call marathon, no "it depends". Tell us what you need and we'll come back with a fixed number and a date.</p>
+    </div>
+
+    <div class="quote__card rv rv-d2">
+      <div class="quote__grid">
+        <aside class="quote__aside">
+          <h3>What happens next</h3>
+          <p class="lede">You send this, we read it properly, and you hear from a person — not an autoresponder.</p>
+          <ul>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg><span>We reply within one working day with questions or a quote.</span></li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg><span>A fixed price and a launch date — in writing, within 48 hours.</span></li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg><span>No obligation, no retainer to talk, no pressure call.</span></li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg><span>Prefer to talk first? <a href="mailto:hello@uaa.agency" style="color:var(--accent)">Email us directly</a>.</span></li>
+          </ul>
+        </aside>
+
+        <div class="quote__main">
+          <div class="prog" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+
+          <form id="quote-form" data-mailto="hello@uaa.agency" data-endpoint="" novalidate>
+            <input type="hidden" name="need" id="q-need" value="both">
+
+            <!-- step 1 -->
+            <div class="stepq on">
+              <p class="kicker">Step 1 of 4</p>
+              <h3>What are you here for?</h3>
+              <div class="pills" data-need-pill>
+                <label class="pill"><input type="radio" name="need" value="web"><span>A website</span></label>
+                <label class="pill"><input type="radio" name="need" value="ai"><span>An AI receptionist</span></label>
+                <label class="pill"><input type="radio" name="need" value="both" checked><span>Both</span></label>
+                <label class="pill"><input type="radio" name="need" value="motion"><span>Motion design</span></label>
+              </div>
+              <div class="qnav"><button class="btn btn--primary" type="button" data-next>Continue <span class="arr" aria-hidden="true">→</span></button></div>
+            </div>
+
+            <!-- step 2 -->
+            <div class="stepq">
+              <p class="kicker">Step 2 of 4</p>
+              <h3>Tell us about the business.</h3>
+              <div class="field"><label for="q-business">Business name</label><input id="q-business" name="business" type="text" placeholder="e.g. Bay Plumbing Co." required></div>
+              <div class="row2">
+                <div class="field"><label for="q-industry">Industry</label><input id="q-industry" name="industry" type="text" placeholder="e.g. Plumbing, dental, retail"></div>
+                <div class="field"><label for="q-site">Current website</label><input id="q-site" name="site" type="text" placeholder="Link, or 'none yet'"></div>
+              </div>
+              <div class="qnav"><button class="btn btn--primary" type="button" data-next>Continue <span class="arr" aria-hidden="true">→</span></button><button class="back" type="button" data-back>Back</button></div>
+            </div>
+
+            <!-- step 3 -->
+            <div class="stepq">
+              <p class="kicker">Step 3 of 4</p>
+              <h3>Budget and timing.</h3>
+              <div class="row2">
+                <div class="field"><label for="q-budget">Budget</label>
+                  <select id="q-budget" name="budget">
+                    <option value="">Not sure yet</option>
+                    <option>Under R10 000</option>
+                    <option>R10 000 – R20 000</option>
+                    <option>R20 000 – R40 000</option>
+                    <option>R40 000+</option>
+                    <option>Monthly plan only</option>
+                  </select>
+                </div>
+                <div class="field"><label for="q-timeline">When do you need it live?</label>
+                  <select id="q-timeline" name="timeline">
+                    <option value="">Flexible</option>
+                    <option>As soon as possible</option>
+                    <option>Within a month</option>
+                    <option>1–3 months</option>
+                    <option>Just exploring</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field"><label for="q-brief">Anything we should know?</label><textarea id="q-brief" name="brief" placeholder="What you sell, who you sell to, what's not working right now."></textarea></div>
+              <div class="qnav"><button class="btn btn--primary" type="button" data-next>Continue <span class="arr" aria-hidden="true">→</span></button><button class="back" type="button" data-back>Back</button></div>
+            </div>
+
+            <!-- step 4 -->
+            <div class="stepq">
+              <p class="kicker">Step 4 of 4</p>
+              <h3>Where do we send the quote?</h3>
+              <div class="field"><label for="q-name">Your name</label><input id="q-name" name="name" type="text" placeholder="First and last" required></div>
+              <div class="row2">
+                <div class="field"><label for="q-email">Email</label><input id="q-email" name="email" type="email" placeholder="you@business.co.za" required></div>
+                <div class="field"><label for="q-phone">Phone / WhatsApp</label><input id="q-phone" name="phone" type="tel" placeholder="+27 ..."></div>
+              </div>
+              <div class="qnav"><button class="btn btn--primary btn--lg" type="submit">Send it <span class="arr" aria-hidden="true">→</span></button><button class="back" type="button" data-back>Back</button></div>
+              <p class="formnote">We'll only use this to answer your enquiry. No list, no newsletter, no sharing it with anyone.</p>
+            </div>
+
+            <!-- done -->
+            <div class="done" id="quote-done">
+              <div class="done__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></div>
+              <h3 style="margin-bottom:.7rem">That's in. Thank you.</h3>
+              <p class="lede" style="margin-inline:auto">Your mail client should have opened with the brief ready to send. If it didn't, email it straight to <a href="mailto:hello@uaa.agency" style="color:var(--accent)">hello@uaa.agency</a> — we'll come back within one working day.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================================== FOOTER ===================================== -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <a class="brand" href="#top"><img src="assets/img/uaa-mark.svg" alt="" width="32" height="32">UAA <span>Agency</span></a>
+        <p>We build the website that answers the question and the AI receptionist that answers the call. Gqeberha, South Africa — working wherever the internet reaches.</p>
+      </div>
+
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#websites">Website design</a></li>
+          <li><a href="#receptionist">AI receptionist</a></li>
+          <li><a href="#motion">Motion design</a></li>
+          <li><a href="#quote">Book a quote</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#process">How we work</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#" data-reopen-gate>Change what I'm here for</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Talk to us</h4>
+        <ul>
+          <li><a href="mailto:hello@uaa.agency">hello@uaa.agency</a></li>
+          <li><a href="https://wa.me/27000000000">WhatsApp us</a></li>
+          <li><a href="#quote">Book a quote</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="ftr__big" aria-hidden="true">UAA</p>
+
+    <div class="ftr__bot">
+      <p style="margin:0">© <span id="yr">2026</span> UAA Agency. All rights reserved.</p>
+      <p style="margin:0">Websites · AI receptionists · Motion design</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/uaa.js"></script>
+</body>
+</html>

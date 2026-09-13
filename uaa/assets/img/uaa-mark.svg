@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="UAA Agency">
+  <defs>
+    <linearGradient id="uaaG" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#35E4FF"/>
+      <stop offset=".52" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#FF7A45"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="17" fill="url(#uaaG)"/>
+  <path d="M32 13.5 47.5 49h-8.2l-2.6-6.3H19.9l-2.6 6.3H9.1L24.6 13.5Z" fill="#05070F" opacity=".92"/>
+  <path d="M28.3 35.9h8.6L32.6 25.4Z" fill="url(#uaaG)"/>
+  <circle cx="47" cy="17" r="4.4" fill="#05070F" opacity=".92"/>
+  <circle cx="47" cy="17" r="2.1" fill="#35E4FF"/>
+</svg>
