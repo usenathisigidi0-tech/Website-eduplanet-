@@ -61,36 +61,50 @@ working. Search for the value and replace it.
 `#qm-form` is the dialog the "Get a Quote" buttons open, for Custom Website and
 Web App.
 
-### Turning on reliable delivery
+### How a submission is delivered
 
-Both forms currently fall back to `mailto:`, which opens the *visitor's* own
-mail app and relies on them pressing send. To have submissions posted straight
-to your inbox instead, set one value near the top of `assets/js/uaa.js`:
+Delivery never depends on scripted navigation. Assigning `location.href` to a
+`mailto:` URL is blocked outright inside a sandboxed frame, which used to drop
+the enquiry while still showing a thank-you. There are now two honest outcomes:
+
+- **Posted** — an endpoint is set and returned a success. The visitor sees
+  "Thanks! We'll get back to you within 24 hours with your quote."
+- **Handoff** — no endpoint is set, or the post failed. The visitor sees their
+  brief written out, with Copy / Send on WhatsApp / Open in email buttons they
+  click themselves, plus the address and number in plain text.
+
+Either way the answers survive. Every button is a real link or a click handler,
+so it works in a sandboxed preview, with popups blocked, and with no mail app
+installed.
+
+### Turning on posted delivery
+
+Set one value near the top of `assets/js/uaa.js`:
 
 ```js
 var FORM_ENDPOINT = 'https://formspree.io/f/XXXXXXX';
 ```
 
-That is the only edit needed — both forms read it. A `data-endpoint` attribute
-on an individual form overrides it if you ever want them going to different
-places. Any endpoint accepting a `POST` of `FormData` works: Formspree, Netlify
-Forms, an n8n or Make webhook, your own script.
+That is the only edit — both forms read it. A `data-endpoint` attribute on an
+individual form overrides it. Any endpoint accepting a `POST` of `FormData`
+works: Formspree, Netlify Forms, an n8n or Make webhook, your own script.
 
-What the forms already do for you:
+What the forms already handle:
 
-- **`Accept: application/json`** on the request, so Formspree replies with JSON
-  instead of redirecting the visitor to its own thank-you page.
-- **Real error handling.** `fetch` only rejects on network failure, so an HTTP
-  4xx/5xx is checked by hand. Anything other than a success falls back to
-  `mailto:` — a rejected submission can never show a false "thank you".
-- **`_replyto`** carries the enquirer's address, so hitting reply in Gmail
-  answers *them*, not you.
-- **`_subject`** sets a readable subject line: "Quote request — Web App — Bay
-  Plumbing Co." rather than a generic one.
-- **`_gotcha`** is a hidden spam trap. People never see it; bots fill it in and
-  the submission is dropped without being sent.
-- The submit button disables while the request is in flight, so an impatient
-  double-click cannot send twice.
+- **`Accept: application/json`** so Formspree replies with JSON instead of
+  redirecting the visitor to its own thank-you page.
+- **Real error checking.** `fetch` only rejects on network failure, so an HTTP
+  4xx/5xx is caught by hand and drops to the handoff. A rejected submission can
+  never show a false "thank you".
+- **`_replyto`** carries the enquirer's address, so replying in Gmail answers
+  them, not you.
+- **`_subject`** gives a readable subject: "Quote request — Web App — Bay
+  Plumbing Co."
+- **`_gotcha`** is a hidden spam trap; bots fill it, the submission is dropped.
+- The submit button disables in flight, so a double-click cannot send twice.
+- Copy tries `execCommand` before the async Clipboard API, because a sandboxed
+  frame blocks the latter under a permissions policy. If both fail the text is
+  already selected and the button says so.
 
 ### Adding more motion reels
 

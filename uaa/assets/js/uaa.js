@@ -27,19 +27,24 @@
      =========================================================================== */
   var FORM_ENDPOINT = '';
 
-  /* Posts a brief to the endpoint, falling back to mail if anything goes wrong.
-     fetch only rejects on network failure, so a 4xx/5xx has to be caught by
-     hand — otherwise a rejected submission would still show "thank you". */
+  /* Posts a brief to the endpoint when one is configured.
+
+     Delivery never depends on scripted navigation. Assigning location.href to
+     a mailto: URL is blocked outright inside a sandboxed frame — the preview
+     embed among them — which used to drop the enquiry while still showing a
+     thank-you. So when there is no endpoint, or the post fails, the visitor is
+     handed their own brief with copy / WhatsApp / mail buttons they click
+     themselves. Either way the answers survive.
+
+     fetch only rejects on network failure, so a 4xx/5xx is checked by hand. */
   function sendBrief(o) {
     var endpoint = o.form.dataset.endpoint || FORM_ENDPOINT;
     var btn = $('button[type=submit]', o.form);
 
     // a bot filled the hidden field: look successful, send nothing
-    if (o.data.get('_gotcha')) { o.finish(); return; }
+    if (o.data.get('_gotcha')) { o.finish('posted'); return; }
 
-    var viaMail = function () { window.location.href = o.mail; o.finish(); };
-
-    if (!endpoint) { viaMail(); return; }
+    if (!endpoint) { o.finish('handoff'); return; }
 
     if (btn) { btn.disabled = true; btn.style.opacity = '.65'; }
     fetch(endpoint, {
@@ -49,10 +54,58 @@
     })
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
-        o.finish();
+        o.finish('posted');
       })
-      .catch(viaMail)
+      .catch(function () { o.finish('handoff'); })
       .then(function () { if (btn) { btn.disabled = false; btn.style.opacity = ''; } });
+  }
+
+  /* Dresses a confirmation panel for what actually happened. */
+  function showDone(panel, mode, brief, subject) {
+    if (!panel) return;
+    var posted = $('[data-done-posted]', panel);
+    var handoff = $('[data-done-handoff]', panel);
+    if (posted) posted.hidden = mode !== 'posted';
+    if (handoff) handoff.hidden = mode === 'posted';
+    if (mode === 'posted') return;
+
+    var box = $('.handoff__text', panel);
+    if (box) box.value = brief;
+
+    var wa = $('[data-wa]', panel);
+    if (wa) wa.href = 'https://wa.me/27639329054?text=' + encodeURIComponent(brief);
+
+    var mail = $('[data-mail]', panel);
+    if (mail) {
+      mail.href = 'mailto:usenathisigidi0@gmail.com?subject=' +
+        encodeURIComponent(subject) + '&body=' + encodeURIComponent(brief);
+    }
+
+    var copy = $('[data-copy]', panel);
+    if (copy && !copy.dataset.wired) {
+      copy.dataset.wired = '1';
+      copy.addEventListener('click', function () {
+        var say = function (ok) {
+          copy.textContent = ok ? 'Copied' : 'Press Ctrl/Cmd + C';
+          window.setTimeout(function () { copy.textContent = 'Copy the brief'; }, 2200);
+        };
+        // Select first, so even a total failure leaves the text ready to copy
+        // by hand. execCommand is tried before the async Clipboard API: a
+        // sandboxed frame blocks the latter under a permissions policy and
+        // logs a violation, while the legacy path still works there.
+        if (box) { box.focus(); box.select(); }
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        if (ok) { say(true); return; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(box ? box.value : '')
+            .then(function () { say(true); })
+            .catch(function () { say(false); });
+        } else {
+          say(false);
+        }
+      });
+    }
   }
 
   /* ---------------------------------------------------------------- 1. gate */
@@ -386,20 +439,14 @@
       sendBrief({
         form: form,
         data: d,
-        mail: mailto(body, subject),
-        finish: function () {
+        finish: function (mode) {
           steps.forEach(function (s) { s.classList.remove('on'); });
           bars.forEach(function (b) { b.classList.add('on'); });
+          showDone(done, mode, body, subject);
           if (done) done.classList.add('on');
         }
       });
     });
-
-    function mailto(body, subject) {
-      return 'mailto:' + (form.dataset.mailto || 'usenathisigidi0@gmail.com') +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-    }
 
     // jumping to the form from a pricing tier pre-selects the right need
     $$('[data-quote-need]').forEach(function (a) {
@@ -507,11 +554,9 @@
       sendBrief({
         form: qmForm,
         data: d,
-        mail: 'mailto:' + (qmForm.dataset.mailto || 'usenathisigidi0@gmail.com') +
-          '?subject=' + encodeURIComponent(subject) +
-          '&body=' + encodeURIComponent(body),
-        finish: function () {
+        finish: function (mode) {
           if (qmWrap) qmWrap.hidden = true;
+          showDone(qmDone, mode, body, subject);
           if (qmDone) qmDone.classList.add('on');
         }
       });

@@ -809,8 +809,25 @@
             <!-- done -->
             <div class="done" id="quote-done">
               <div class="done__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></div>
-              <h3 style="margin-bottom:.7rem">That's in. Thank you.</h3>
-              <p class="lede" style="margin-inline:auto">Your mail client should have opened with the brief ready to send. If it didn't, email it straight to <a href="mailto:usenathisigidi0@gmail.com" style="color:var(--accent)">usenathisigidi0@gmail.com</a> — we'll come back within one working day.</p>
+<div data-done-posted hidden>
+                <h3 style="margin-bottom:.7rem">Thanks! We&rsquo;ll get back to you within 24 hours with your quote.</h3>
+                <p class="lede" style="margin-inline:auto">It&rsquo;s landed in our inbox and we&rsquo;ll reply to the address you gave us.</p>
+              </div>
+
+              <div data-done-handoff hidden>
+                <h3 style="margin-bottom:.7rem">Almost there &mdash; send us this brief.</h3>
+                <p class="lede" style="margin-inline:auto;margin-bottom:1.4rem">Your answers are written up below. Pick whichever way suits you and we&rsquo;ll reply within 24 hours.</p>
+                <div class="handoff">
+                  <label class="handoff__label" for="q-handoff">Your brief</label>
+                  <textarea class="handoff__text" id="q-handoff" readonly rows="9"></textarea>
+                  <div class="handoff__acts">
+                    <button class="btn btn--primary btn--sm" type="button" data-copy>Copy the brief</button>
+                    <a class="btn btn--ghost btn--sm" data-wa target="_blank" rel="noopener">Send on WhatsApp</a>
+                    <a class="btn btn--ghost btn--sm" data-mail target="_blank" rel="noopener">Open in email</a>
+                  </div>
+                  <p class="handoff__note">Or send it to <a href="mailto:usenathisigidi0@gmail.com">usenathisigidi0@gmail.com</a> &middot; WhatsApp <a href="https://wa.me/27639329054">063&nbsp;932&nbsp;9054</a></p>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -937,8 +954,25 @@
 
     <div class="done" id="qm-done">
       <div class="done__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></div>
-      <h3 style="margin-bottom:.7rem">Thanks! We&rsquo;ll get back to you within 24 hours with your quote.</h3>
-      <p class="lede" style="margin-inline:auto">If your mail client didn&rsquo;t open, send the brief straight to <a href="mailto:usenathisigidi0@gmail.com" style="color:var(--accent)">usenathisigidi0@gmail.com</a> and we&rsquo;ll pick it up there.</p>
+<div data-done-posted hidden>
+                <h3 style="margin-bottom:.7rem">Thanks! We&rsquo;ll get back to you within 24 hours with your quote.</h3>
+                <p class="lede" style="margin-inline:auto">It&rsquo;s landed in our inbox and we&rsquo;ll reply to the address you gave us.</p>
+              </div>
+
+              <div data-done-handoff hidden>
+                <h3 style="margin-bottom:.7rem">Almost there &mdash; send us this brief.</h3>
+                <p class="lede" style="margin-inline:auto;margin-bottom:1.4rem">Your answers are written up below. Pick whichever way suits you and we&rsquo;ll reply within 24 hours.</p>
+                <div class="handoff">
+                  <label class="handoff__label" for="qm-handoff">Your brief</label>
+                  <textarea class="handoff__text" id="qm-handoff" readonly rows="9"></textarea>
+                  <div class="handoff__acts">
+                    <button class="btn btn--primary btn--sm" type="button" data-copy>Copy the brief</button>
+                    <a class="btn btn--ghost btn--sm" data-wa target="_blank" rel="noopener">Send on WhatsApp</a>
+                    <a class="btn btn--ghost btn--sm" data-mail target="_blank" rel="noopener">Open in email</a>
+                  </div>
+                  <p class="handoff__note">Or send it to <a href="mailto:usenathisigidi0@gmail.com">usenathisigidi0@gmail.com</a> &middot; WhatsApp <a href="https://wa.me/27639329054">063&nbsp;932&nbsp;9054</a></p>
+                </div>
+              </div>
       <button class="btn btn--ghost" type="button" id="qm-done-close" style="margin-top:22px">Close</button>
     </div>
   </div>

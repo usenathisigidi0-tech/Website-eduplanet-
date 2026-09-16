@@ -728,3 +728,25 @@ html[data-track="both"] [data-show]:not([data-show~="both"]){display:none !impor
   .tiergroup .g-3,.tiergroup .g-2{grid-template-columns:1fr}
   .plans th,.plans td{padding:12px 13px}
 }
+
+/* ==========================================================================
+   15. BRIEF HANDOFF — shown when there is no endpoint, or a post failed.
+       The visitor's answers are never lost: they can copy them, send them
+       on WhatsApp, or open them in mail. No scripted navigation involved.
+   ========================================================================== */
+.handoff{text-align:left;max-width:560px;margin-inline:auto}
+.handoff__label{
+  display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-3);margin-bottom:8px;
+}
+.handoff__text{
+  width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);
+  background:rgba(5,7,15,.6);color:var(--text-2);font-family:var(--mono);
+  font-size:.8rem;line-height:1.6;resize:vertical;white-space:pre;overflow:auto;
+}
+.handoff__text:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.handoff__acts{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.handoff__acts .btn{flex:1 1 auto;justify-content:center}
+.handoff__note{margin:14px 0 0;font-size:.8rem;color:var(--text-3);line-height:1.55}
+.handoff__note a{color:var(--accent)}
+@media (max-width:520px){ .handoff__acts .btn{flex:1 1 100%} }
