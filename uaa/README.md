@@ -58,23 +58,39 @@ working. Search for the value and replace it.
 
 `#quote-form` is the general four-step enquiry in the `#quote` section — every
 "Get Started" button lands there with the plan it came from pre-filled.
-`#qm-form` is the dialog that the "Get a Quote" buttons open, for Custom Website
-and Web App. Both need an endpoint (below); set it on each.
+`#qm-form` is the dialog the "Get a Quote" buttons open, for Custom Website and
+Web App.
 
-### Making the quote forms actually collect leads
+### Turning on reliable delivery
 
-Right now the forms hand the finished brief to the visitor's mail client
-(`mailto:`), which works everywhere but is not reliable on every device. To
-collect submissions properly, put an endpoint on the form:
+Both forms currently fall back to `mailto:`, which opens the *visitor's* own
+mail app and relies on them pressing send. To have submissions posted straight
+to your inbox instead, set one value near the top of `assets/js/uaa.js`:
 
-```html
-<form id="quote-form" data-endpoint="https://formspree.io/f/XXXXXXX" ...>
-<form id="qm-form"    data-endpoint="https://formspree.io/f/XXXXXXX" ...>
+```js
+var FORM_ENDPOINT = 'https://formspree.io/f/XXXXXXX';
 ```
 
-Any endpoint that accepts a `POST` of `FormData` works — Formspree, Netlify
-Forms, an n8n or Make webhook, your own script. The `mailto:` route stays as the
-fallback if the request fails.
+That is the only edit needed — both forms read it. A `data-endpoint` attribute
+on an individual form overrides it if you ever want them going to different
+places. Any endpoint accepting a `POST` of `FormData` works: Formspree, Netlify
+Forms, an n8n or Make webhook, your own script.
+
+What the forms already do for you:
+
+- **`Accept: application/json`** on the request, so Formspree replies with JSON
+  instead of redirecting the visitor to its own thank-you page.
+- **Real error handling.** `fetch` only rejects on network failure, so an HTTP
+  4xx/5xx is checked by hand. Anything other than a success falls back to
+  `mailto:` — a rejected submission can never show a false "thank you".
+- **`_replyto`** carries the enquirer's address, so hitting reply in Gmail
+  answers *them*, not you.
+- **`_subject`** sets a readable subject line: "Quote request — Web App — Bay
+  Plumbing Co." rather than a generic one.
+- **`_gotcha`** is a hidden spam trap. People never see it; bots fill it in and
+  the submission is dropped without being sent.
+- The submit button disables while the request is in flight, so an impatient
+  double-click cannot send twice.
 
 ### Adding more motion reels
 

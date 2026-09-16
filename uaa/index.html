@@ -735,6 +735,8 @@
 
           <form id="quote-form" data-mailto="usenathisigidi0@gmail.com" data-endpoint="" novalidate>
             <input type="hidden" name="need" id="q-need" value="both">
+            <!-- Spam trap: a real person never sees this, bots fill it in and the submission is dropped. -->
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
             <input type="hidden" name="plan" id="q-plan" value="">
 
             <!-- step 1 -->
@@ -797,7 +799,7 @@
               <h3>Where do we send the quote?</h3>
               <div class="field"><label for="q-name">Your name</label><input id="q-name" name="name" type="text" placeholder="First and last" required></div>
               <div class="row2">
-                <div class="field"><label for="q-email">Email</label><input id="q-email" name="email" type="email" placeholder="you@business.co.za" required></div>
+                <div class="field"><label for="q-email">Email</label><input id="q-email" name="_replyto" type="email" autocomplete="email" placeholder="you@business.co.za" required></div>
                 <div class="field"><label for="q-phone">Phone / WhatsApp</label><input id="q-phone" name="phone" type="tel" placeholder="+27 ..."></div>
               </div>
               <div class="qnav"><button class="btn btn--primary btn--lg" type="submit">Send it <span class="arr" aria-hidden="true">→</span></button><button class="back" type="button" data-back>Back</button></div>
@@ -882,13 +884,15 @@
       <p class="lede">The more you tell us, the more accurate the number. Everything here takes about two minutes.</p>
 
       <form id="qm-form" data-mailto="usenathisigidi0@gmail.com" data-endpoint="" novalidate>
+        <!-- Spam trap: a real person never sees this, bots fill it in and the submission is dropped. -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
         <div class="row2">
           <div class="field"><label for="qm-name">Full name *</label><input id="qm-name" name="name" type="text" autocomplete="name" placeholder="First and last" required></div>
           <div class="field"><label for="qm-business">Business name *</label><input id="qm-business" name="business" type="text" autocomplete="organization" placeholder="e.g. Bay Plumbing Co." required></div>
         </div>
 
         <div class="row2">
-          <div class="field"><label for="qm-email">Email *</label><input id="qm-email" name="email" type="email" autocomplete="email" placeholder="you@business.co.za" required></div>
+          <div class="field"><label for="qm-email">Email *</label><input id="qm-email" name="_replyto" type="email" autocomplete="email" placeholder="you@business.co.za" required></div>
           <div class="field"><label for="qm-phone">Phone / WhatsApp *</label><input id="qm-phone" name="phone" type="tel" autocomplete="tel" placeholder="+27 ..." required></div>
         </div>
 

@@ -19,6 +19,42 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
+  /* ===========================================================================
+     FORM DELIVERY — paste your Formspree (or Netlify / n8n / Make) endpoint
+     between the quotes below and both forms start posting to it. Leave it
+     empty and they fall back to opening the visitor's own mail client.
+     A data-endpoint attribute on an individual form overrides this.
+     =========================================================================== */
+  var FORM_ENDPOINT = '';
+
+  /* Posts a brief to the endpoint, falling back to mail if anything goes wrong.
+     fetch only rejects on network failure, so a 4xx/5xx has to be caught by
+     hand — otherwise a rejected submission would still show "thank you". */
+  function sendBrief(o) {
+    var endpoint = o.form.dataset.endpoint || FORM_ENDPOINT;
+    var btn = $('button[type=submit]', o.form);
+
+    // a bot filled the hidden field: look successful, send nothing
+    if (o.data.get('_gotcha')) { o.finish(); return; }
+
+    var viaMail = function () { window.location.href = o.mail; o.finish(); };
+
+    if (!endpoint) { viaMail(); return; }
+
+    if (btn) { btn.disabled = true; btn.style.opacity = '.65'; }
+    fetch(endpoint, {
+      method: 'POST',
+      body: o.data,
+      headers: { 'Accept': 'application/json' }   // keeps Formspree on JSON, not a redirect
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        o.finish();
+      })
+      .catch(viaMail)
+      .then(function () { if (btn) { btn.disabled = false; btn.style.opacity = ''; } });
+  }
+
   /* ---------------------------------------------------------------- 1. gate */
   var gate = $('#gate');
 
@@ -339,34 +375,29 @@
         'Budget: ' + (d.get('budget') || '—'),
         'Timeline: ' + (d.get('timeline') || '—'), '',
         'Name: ' + (d.get('name') || '—'),
-        'Email: ' + (d.get('email') || '—'),
+        'Email: ' + (d.get('_replyto') || '—'),
         'Phone: ' + (d.get('phone') || '—'), '',
         'Brief:', (d.get('brief') || '—')
       ].join('\n');
 
-      // No backend in this static build: hand the brief to the visitor's mail
-      // client. Swap ENDPOINT for a Formspree / Netlify / n8n URL to collect
-      // submissions server-side instead.
-      var ENDPOINT = form.dataset.endpoint || '';
-      var finish = function () {
-        steps.forEach(function (s) { s.classList.remove('on'); });
-        bars.forEach(function (b) { b.classList.add('on'); });
-        if (done) done.classList.add('on');
-      };
+      var subject = 'Website enquiry — ' + (d.get('business') || 'New enquiry');
+      d.set('_subject', subject);
 
-      if (ENDPOINT) {
-        fetch(ENDPOINT, { method: 'POST', body: d })
-          .then(finish)
-          .catch(function () { window.location.href = mailto(body); finish(); });
-      } else {
-        window.location.href = mailto(body);
-        finish();
-      }
+      sendBrief({
+        form: form,
+        data: d,
+        mail: mailto(body, subject),
+        finish: function () {
+          steps.forEach(function (s) { s.classList.remove('on'); });
+          bars.forEach(function (b) { b.classList.add('on'); });
+          if (done) done.classList.add('on');
+        }
+      });
     });
 
-    function mailto(body) {
+    function mailto(body, subject) {
       return 'mailto:' + (form.dataset.mailto || 'usenathisigidi0@gmail.com') +
-        '?subject=' + encodeURIComponent('Quote request — ' + (new FormData(form).get('business') || 'New enquiry')) +
+        '?subject=' + encodeURIComponent(subject) +
         '&body=' + encodeURIComponent(body);
     }
 
@@ -464,29 +495,26 @@
         'Timeline: ' + (d.get('timeline') || '—'), '',
         'Name: ' + (d.get('name') || '—'),
         'Business: ' + (d.get('business') || '—'),
-        'Email: ' + (d.get('email') || '—'),
+        'Email: ' + (d.get('_replyto') || '—'),
         'Phone / WhatsApp: ' + (d.get('phone') || '—'), '',
         'About the project:', (d.get('brief') || '—')
       ].join('\n');
 
-      var finish = function () {
-        if (qmWrap) qmWrap.hidden = true;
-        if (qmDone) qmDone.classList.add('on');
-      };
+      var subject = 'Quote request — ' + (d.get('project') || 'Project') +
+        ' — ' + (d.get('business') || 'New enquiry');
+      d.set('_subject', subject);
 
-      var endpoint = qmForm.dataset.endpoint || '';
-      var mail = 'mailto:' + (qmForm.dataset.mailto || 'usenathisigidi0@gmail.com') +
-        '?subject=' + encodeURIComponent('Quote request — ' + (d.get('business') || 'New enquiry')) +
-        '&body=' + encodeURIComponent(body);
-
-      if (endpoint) {
-        fetch(endpoint, { method: 'POST', body: d })
-          .then(finish)
-          .catch(function () { window.location.href = mail; finish(); });
-      } else {
-        window.location.href = mail;
-        finish();
-      }
+      sendBrief({
+        form: qmForm,
+        data: d,
+        mail: 'mailto:' + (qmForm.dataset.mailto || 'usenathisigidi0@gmail.com') +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body),
+        finish: function () {
+          if (qmWrap) qmWrap.hidden = true;
+          if (qmDone) qmDone.classList.add('on');
+        }
+      });
     });
   }
 
