@@ -365,7 +365,7 @@
     });
 
     function mailto(body) {
-      return 'mailto:' + (form.dataset.mailto || 'hello@uaa.agency') +
+      return 'mailto:' + (form.dataset.mailto || 'usenathisigidi0@gmail.com') +
         '?subject=' + encodeURIComponent('Quote request — ' + (new FormData(form).get('business') || 'New enquiry')) +
         '&body=' + encodeURIComponent(body);
     }
@@ -475,7 +475,7 @@
       };
 
       var endpoint = qmForm.dataset.endpoint || '';
-      var mail = 'mailto:' + (qmForm.dataset.mailto || 'hello@uaa.agency') +
+      var mail = 'mailto:' + (qmForm.dataset.mailto || 'usenathisigidi0@gmail.com') +
         '?subject=' + encodeURIComponent('Quote request — ' + (d.get('business') || 'New enquiry')) +
         '&body=' + encodeURIComponent(body);
 

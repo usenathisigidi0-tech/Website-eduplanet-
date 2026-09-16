@@ -45,7 +45,7 @@ working. Search for the value and replace it.
 
 | What | Where | Current placeholder |
 |---|---|---|
-| Email address | `index.html` (4×), `#quote-form data-mailto` | `hello@uaa.agency` |
+| ~~Email address~~ | — | **Set** to `usenathisigidi0@gmail.com` (6 places in `index.html`, 2 `mailto:` fallbacks in `uaa.js`) |
 | WhatsApp number | footer link | `https://wa.me/27000000000` |
 | Demo phone number | `#demo` call card | `+27 ••• ••• 4118` |
 | Location | hero kicker, footer | Gqeberha, South Africa |
