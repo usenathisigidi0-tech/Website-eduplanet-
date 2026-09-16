@@ -46,8 +46,8 @@ working. Search for the value and replace it.
 | What | Where | Current placeholder |
 |---|---|---|
 | ~~Email address~~ | — | **Set** to `usenathisigidi0@gmail.com` (6 places in `index.html`, 2 `mailto:` fallbacks in `uaa.js`) |
-| WhatsApp number | footer link | `https://wa.me/27000000000` |
-| Demo phone number | `#demo` call card | `+27 ••• ••• 4118` |
+| ~~Phone / WhatsApp~~ | — | **Set** to 063 932 9054 — `tel:+27639329054` and `wa.me/27639329054`, in the footer and the quote aside |
+| Demo phone number | `#demo` call card | `+27 ••• ••• 4118` — deliberately masked: it stands for an *incoming caller*, not your number |
 | Location | hero kicker, footer | Gqeberha, South Africa |
 | ~~All prices~~ | — | **Done** — the real ZAR price list is live in `#pricing-web`, `#monthly-plans` and `#pricing-ai` |
 | The three hook stats | `.hook .stats` | **Illustrative industry figures** — verify or replace them; there's a footnote on the page saying so |
