@@ -49,18 +49,27 @@ working. Search for the value and replace it.
 | WhatsApp number | footer link | `https://wa.me/27000000000` |
 | Demo phone number | `#demo` call card | `+27 ••• ••• 4118` |
 | Location | hero kicker, footer | Gqeberha, South Africa |
-| All prices | `#pricing-web`, `#pricing-ai`, `#bundle`, motion CTA | ZAR, drafted to be realistic |
+| ~~All prices~~ | — | **Done** — the real ZAR price list is live in `#pricing-web`, `#monthly-plans` and `#pricing-ai` |
 | The three hook stats | `.hook .stats` | **Illustrative industry figures** — verify or replace them; there's a footnote on the page saying so |
+| Motion design pricing | `.reelcta` in `#motion` | No price given, so the tile routes to the quote dialog |
 | Logo | `assets/img/uaa-mark.svg` + `favicon.svg` | Original mark I designed; drop your real logo in at the same paths and nothing else changes |
 
-### Making the quote form actually collect leads
+### The two forms
 
-Right now the form hands the finished brief to the visitor's mail client
+`#quote-form` is the general four-step enquiry in the `#quote` section — every
+"Get Started" button lands there with the plan it came from pre-filled.
+`#qm-form` is the dialog that the "Get a Quote" buttons open, for Custom Website
+and Web App. Both need an endpoint (below); set it on each.
+
+### Making the quote forms actually collect leads
+
+Right now the forms hand the finished brief to the visitor's mail client
 (`mailto:`), which works everywhere but is not reliable on every device. To
 collect submissions properly, put an endpoint on the form:
 
 ```html
 <form id="quote-form" data-endpoint="https://formspree.io/f/XXXXXXX" ...>
+<form id="qm-form"    data-endpoint="https://formspree.io/f/XXXXXXX" ...>
 ```
 
 Any endpoint that accepts a `POST` of `FormData` works — Formspree, Netlify

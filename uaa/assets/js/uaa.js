@@ -92,7 +92,7 @@
   }
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && root.classList.contains('is-gated')) {
+    if (e.key === 'Escape' && gate && !gate.hidden && root.classList.contains('is-gated')) {
       if (!readTrack()) setTrack('both');
       closeGate();
     }
@@ -332,6 +332,7 @@
       var body = [
         'New quote request — UAA Agency', '',
         'Looking for: ' + label,
+        'Plan clicked: ' + (d.get('plan') || '—'),
         'Business: ' + (d.get('business') || '—'),
         'Industry: ' + (d.get('industry') || '—'),
         'Current site: ' + (d.get('site') || '—'),
@@ -376,6 +377,8 @@
         var need = $('#q-need');
         if (need) need.value = n;
         $$('[data-need-pill] input').forEach(function (i) { i.checked = i.value === n; });
+        var plan = $('#q-plan');
+        if (plan) plan.value = a.dataset.planName || '';
         at = 1; paint();
       });
     });
@@ -383,18 +386,107 @@
     paint();
   }
 
-  /* ------------------------------------------------------- pricing toggle */
-  var billing = $('#billing');
-  if (billing) {
-    $$('button', billing).forEach(function (b) {
+  /* ------------------------------- 7. monthly plan comparison toggle */
+  var planToggle = $('#plantoggle');
+  var planWrap = $('#planwrap');
+  if (planToggle && planWrap) {
+    $$('button', planToggle).forEach(function (b) {
       b.addEventListener('click', function () {
-        $$('button', billing).forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+        $$('button', planToggle).forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
         b.setAttribute('aria-pressed', 'true');
-        root.setAttribute('data-billing', b.dataset.billing);
-        $$('[data-m][data-y]').forEach(function (el) {
-          el.textContent = b.dataset.billing === 'year' ? el.dataset.y : el.dataset.m;
-        });
+        planWrap.setAttribute('data-emph', b.dataset.emph);
       });
+    });
+  }
+
+  /* --------------------------------------------- 8. the quote dialog */
+  var qm = $('#quote-modal');
+  if (qm) {
+    var qmForm = $('#qm-form');
+    var qmWrap = $('#qm-form-wrap');
+    var qmDone = $('#qm-done');
+    var qmPanel = $('#qm-panel');
+    var qmProject = $('#qm-project');
+    var lastFocus = null;
+    var qmTimer = null;
+
+    function openQuote(project) {
+      window.clearTimeout(qmTimer);
+      lastFocus = document.activeElement;
+      qm.hidden = false;
+      if (qmProject && project) {
+        // the option list is fixed, so only set a value that exists
+        var match = $$('option', qmProject).filter(function (o) { return o.value === project || o.textContent === project; })[0];
+        if (match) qmProject.value = match.value || match.textContent;
+      }
+      window.requestAnimationFrame(function () {
+        qm.classList.add('on');
+        root.classList.add('is-locked');      // scroll lock, distinct from the gate's
+        if (qmPanel) qmPanel.focus();
+      });
+    }
+
+    function closeQuote() {
+      qm.classList.remove('on');
+      root.classList.remove('is-locked');
+      qmTimer = window.setTimeout(function () { qm.hidden = true; }, 420);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    $$('[data-open-quote]').forEach(function (b) {
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        openQuote(b.dataset.openQuote);
+      });
+    });
+
+    $('#qm-close').addEventListener('click', closeQuote);
+    var doneClose = $('#qm-done-close');
+    if (doneClose) doneClose.addEventListener('click', closeQuote);
+
+    // click the backdrop, not the panel, to dismiss
+    qm.addEventListener('mousedown', function (e) { if (e.target === qm) closeQuote(); });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && qm.classList.contains('on')) closeQuote();
+    });
+
+    qmForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var bad = $$('[required]', qmForm).filter(function (f) { return !f.checkValidity(); })[0];
+      if (bad) { bad.reportValidity(); return; }
+
+      var d = new FormData(qmForm);
+      var body = [
+        'Quote request — UAA Agency', '',
+        'Project type: ' + (d.get('project') || '—'),
+        'Budget: ' + (d.get('budget') || '—'),
+        'Timeline: ' + (d.get('timeline') || '—'), '',
+        'Name: ' + (d.get('name') || '—'),
+        'Business: ' + (d.get('business') || '—'),
+        'Email: ' + (d.get('email') || '—'),
+        'Phone / WhatsApp: ' + (d.get('phone') || '—'), '',
+        'About the project:', (d.get('brief') || '—')
+      ].join('\n');
+
+      var finish = function () {
+        if (qmWrap) qmWrap.hidden = true;
+        if (qmDone) qmDone.classList.add('on');
+      };
+
+      var endpoint = qmForm.dataset.endpoint || '';
+      var mail = 'mailto:' + (qmForm.dataset.mailto || 'hello@uaa.agency') +
+        '?subject=' + encodeURIComponent('Quote request — ' + (d.get('business') || 'New enquiry')) +
+        '&body=' + encodeURIComponent(body);
+
+      if (endpoint) {
+        fetch(endpoint, { method: 'POST', body: d })
+          .then(finish)
+          .catch(function () { window.location.href = mail; finish(); });
+      } else {
+        window.location.href = mail;
+        finish();
+      }
     });
   }
 

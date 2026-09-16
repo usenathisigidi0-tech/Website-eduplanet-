@@ -44,7 +44,8 @@ html[data-track="both"]{--accent:#8b5cf6; --accent-2:#35e4ff; --accent-glow:rgba
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-html.is-gated{overflow:hidden}
+html.is-gated,
+html.is-locked{overflow:hidden}
 body{
   margin:0;background:var(--canvas);color:var(--text);
   font-family:var(--body);font-size:clamp(15.5px,.42vw + 14.6px,17.5px);
@@ -603,4 +604,127 @@ html[data-track="both"] [data-show]:not([data-show~="both"]){display:none !impor
   html{scroll-behavior:auto}
   .rv{opacity:1;transform:none}
   .marq__t{animation:none}
+}
+
+/* ==========================================================================
+   13. PRICE LIST — setup + monthly tiers, the monthly-plan comparison,
+       the quote dialog and the small print
+   ========================================================================== */
+
+/* a labelled group of tiers (fixed-price builds vs. quoted builds) */
+.tiergroup{margin-top:clamp(36px,4.2vw,58px)}
+.tiergroup:first-of-type{margin-top:0}
+.tiergroup__head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:clamp(18px,2vw,26px)}
+.tiergroup__head h3{font-size:clamp(1.08rem,1.4vw,1.34rem)}
+.tiergroup__head p{margin:0;font-size:.88rem;color:var(--text-3)}
+
+/* the once-off setup fee that sits above a monthly price */
+.tier__setup{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  padding:11px 13px;border-radius:11px;border:1px solid var(--line);
+  background:rgba(255,255,255,.032);margin-bottom:1.1rem;font-size:.84rem;color:var(--text-2);
+}
+.tier__setup b{font-family:var(--mono);font-size:.84rem;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+
+/* the minutes allowance strip on a receptionist tier */
+.tier__mins{
+  display:grid;gap:5px;margin:1.1rem 0 0;padding:13px 15px;border-radius:12px;
+  border:1px dashed var(--line-strong);font-size:.85rem;color:var(--text-2);line-height:1.45;
+}
+.tier__mins b{color:var(--text);font-weight:640;font-variant-numeric:tabular-nums}
+
+/* "Get a Quote" in the slot where a number would be */
+.tier__quote{
+  font-family:var(--display);font-size:clamp(1.5rem,2.1vw,1.9rem);font-weight:760;
+  letter-spacing:-.035em;line-height:1;
+}
+
+/* ---------- monthly plan comparison ---------- */
+.plantoggle{
+  display:inline-flex;gap:3px;padding:3px;border-radius:100px;border:1px solid var(--line);
+  background:rgba(255,255,255,.03);margin-bottom:clamp(18px,2.2vw,26px);
+}
+.plantoggle button{
+  font-family:var(--mono);font-size:.655rem;letter-spacing:.11em;text-transform:uppercase;font-weight:600;
+  padding:.64em 1.05em;border-radius:100px;color:var(--text-3);transition:color .3s,background .3s;white-space:nowrap;
+}
+.plantoggle button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.plantoggle button:not([aria-pressed="true"]):hover{color:var(--text)}
+
+.planwrap{
+  overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--line);
+  background:linear-gradient(170deg,rgba(255,255,255,.035),rgba(255,255,255,.006));
+}
+.plans{width:100%;border-collapse:collapse;min-width:460px}
+.plans th,.plans td{padding:clamp(13px,1.5vw,17px) clamp(13px,1.6vw,22px);text-align:left;border-bottom:1px solid var(--line)}
+.plans tr:last-child th,.plans tr:last-child td{border-bottom:0}
+.plans thead th{
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--text-3);font-weight:600;
+}
+.plans tbody th{font-family:var(--body);font-weight:600;font-size:.93rem;color:var(--text)}
+.plans td{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.9rem;
+  color:var(--text-2);white-space:nowrap;transition:background .35s,color .35s;
+}
+.plans td small,.plans th small{font-size:.74em;color:var(--text-3);letter-spacing:.04em}
+/* the emphasised column follows the toggle */
+.plans .c-manage{background:var(--accent-soft);color:var(--text);font-weight:600}
+.plans thead .c-manage{color:var(--accent)}
+.planwrap[data-emph="host"] .c-manage{background:transparent;color:var(--text-2);font-weight:400}
+.planwrap[data-emph="host"] thead .c-manage{color:var(--text-3)}
+.planwrap[data-emph="host"] .c-host{background:var(--accent-soft);color:var(--text);font-weight:600}
+.planwrap[data-emph="host"] thead .c-host{color:var(--accent)}
+
+/* what each monthly option includes */
+.incl{padding:clamp(22px,2.4vw,30px);border-radius:var(--r-lg);border:1px solid var(--line);background:linear-gradient(170deg,rgba(255,255,255,.038),rgba(255,255,255,.006))}
+.incl--hot{border-color:var(--accent);background:linear-gradient(170deg,var(--accent-soft),rgba(255,255,255,.01))}
+.incl h3{margin-bottom:.35rem}
+.incl > p{font-size:.87rem;color:var(--text-3);margin:0 0 1.25rem}
+.incl ul{list-style:none;padding:0;margin:0;display:grid;gap:11px;font-size:.9rem}
+.incl li{display:flex;gap:10px;color:var(--text-2);line-height:1.5}
+.incl li svg{width:15px;height:15px;flex-shrink:0;margin-top:.32em;color:var(--accent)}
+.incl li > div{min-width:0}
+.incl li ul{margin-top:9px;gap:7px}
+.incl li li{font-size:.84rem;color:var(--text-3)}
+.incl li li::before{content:"—";color:var(--text-3);flex-shrink:0}
+
+/* ---------- small print ---------- */
+.smallprint{border-top:1px solid var(--line);margin-top:clamp(34px,4vw,54px);padding-top:clamp(22px,2.4vw,30px);list-style:none;display:grid;gap:10px;padding-inline:0}
+.smallprint li{display:flex;gap:11px;font-size:.855rem;color:var(--text-3);line-height:1.55}
+.smallprint li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.66em;opacity:.85}
+
+/* ==========================================================================
+   14. QUOTE DIALOG — opened by the "Get a Quote" buttons
+   ========================================================================== */
+.modal{
+  position:fixed;inset:0;z-index:9990;display:grid;place-items:center;
+  padding:clamp(16px,4vw,44px) var(--gut);overflow-y:auto;
+  background:rgba(3,5,12,.84);backdrop-filter:blur(10px);
+  opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;
+}
+.modal.on{opacity:1;visibility:visible}
+.modal__panel{
+  position:relative;width:100%;max-width:660px;border-radius:var(--r-xl);
+  border:1px solid var(--line-strong);background:linear-gradient(172deg,var(--panel-2),var(--panel) 70%);
+  box-shadow:0 60px 120px -50px rgba(0,0,0,.95);padding:clamp(26px,3.2vw,44px);
+  transform:translateY(16px) scale(.985);transition:transform .45s var(--ease);
+}
+.modal.on .modal__panel{transform:none}
+.modal__x{
+  position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--line);display:grid;place-items:center;color:var(--text-2);
+  transition:background .3s,color .3s,border-color .3s;
+}
+.modal__x:hover{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.modal__x svg{width:14px;height:14px}
+.modal h3{margin:.55rem 0 .6rem}
+.modal__panel > .lede{font-size:.95rem;margin-bottom:1.6rem}
+
+@media (max-width:900px){
+  .tiergroup .g-3,.tiergroup .g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .tiergroup .g-3,.tiergroup .g-2{grid-template-columns:1fr}
+  .plans th,.plans td{padding:12px 13px}
 }
