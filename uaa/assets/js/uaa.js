@@ -20,10 +20,11 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   /* ===========================================================================
-     FORM DELIVERY — paste your Formspree (or Netlify / n8n / Make) endpoint
-     between the quotes below and both forms start posting to it. Leave it
-     empty and they fall back to opening the visitor's own mail client.
-     A data-endpoint attribute on an individual form overrides this.
+     FORM DELIVERY — the endpoint both forms post to. Any service taking a
+     POST of FormData works: Formspree, Netlify Forms, an n8n or Make webhook.
+     Empty it and every submission falls back to the handoff screen, where the
+     visitor copies or sends their own brief. A data-endpoint attribute on an
+     individual form overrides this value.
      =========================================================================== */
   var FORM_ENDPOINT = 'https://formspree.io/f/mgavwnon';
 
@@ -67,6 +68,16 @@
       .then(function () { if (btn) { btn.disabled = false; btn.style.opacity = ''; } });
   }
 
+  /* True when the page sits in a frame whose parent we cannot reach — an
+     embedded preview. Such frames block opening mailto: and external links
+     ("Blocked opening ...", which the viewer reports as blocked content), so
+     the handoff leads with Copy there instead of offering dead buttons. A
+     normally hosted page is never confined and keeps all three actions. */
+  function isConfined() {
+    if (window.self === window.top) return false;
+    try { return !window.top.location.host; } catch (e) { return true; }
+  }
+
   /* Dresses a confirmation panel for what actually happened. */
   function showDone(panel, mode, brief, subject) {
     if (!panel) return;
@@ -79,14 +90,21 @@
     var box = $('.handoff__text', panel);
     if (box) box.value = brief;
 
+    var confined = isConfined();
     var wa = $('[data-wa]', panel);
-    if (wa) wa.href = 'https://wa.me/27639329054?text=' + encodeURIComponent(brief);
-
     var mail = $('[data-mail]', panel);
+    var note = $('[data-preview-note]', panel);
+
+    if (wa) {
+      wa.hidden = confined;
+      wa.href = 'https://wa.me/27639329054?text=' + encodeURIComponent(brief);
+    }
     if (mail) {
+      mail.hidden = confined;
       mail.href = 'mailto:usenathisigidi0@gmail.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(brief);
     }
+    if (note) note.hidden = !confined;
 
     var copy = $('[data-copy]', panel);
     if (copy && !copy.dataset.wired) {

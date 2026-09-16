@@ -73,9 +73,17 @@ the enquiry while still showing a thank-you. There are now two honest outcomes:
   brief written out, with Copy / Send on WhatsApp / Open in email buttons they
   click themselves, plus the address and number in plain text.
 
-Either way the answers survive. Every button is a real link or a click handler,
-so it works in a sandboxed preview, with popups blocked, and with no mail app
-installed.
+Either way the answers survive.
+
+The handoff adapts to where it is running. A page inside a frame it cannot
+reach out of — an embedded preview — has `mailto:` and external links blocked
+by the host ("Blocked opening …"), so there the WhatsApp and email buttons are
+hidden, Copy leads, and a line explains why. A normally hosted page is never
+confined and keeps all three actions.
+
+**A preview embed also blocks the POST itself**, so a form tested inside one
+always lands on the handoff no matter how healthy the endpoint is. Posting can
+only be judged on a real domain.
 
 ### Turning on posted delivery
 
