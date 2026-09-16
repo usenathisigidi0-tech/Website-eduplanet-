@@ -25,7 +25,7 @@
      empty and they fall back to opening the visitor's own mail client.
      A data-endpoint attribute on an individual form overrides this.
      =========================================================================== */
-  var FORM_ENDPOINT = '';
+  var FORM_ENDPOINT = 'https://formspree.io/f/mgavwnon';
 
   /* Posts a brief to the endpoint when one is configured.
 
@@ -40,6 +40,13 @@
   function sendBrief(o) {
     var endpoint = o.form.dataset.endpoint || FORM_ENDPOINT;
     var btn = $('button[type=submit]', o.form);
+
+    // Formspree takes the reply-to from _replyto on older forms and from a
+    // field named email on newer ones. Send both so replying in Gmail always
+    // answers the enquirer rather than the account owner.
+    if (o.data.get('_replyto') && !o.data.get('email')) {
+      o.data.set('email', o.data.get('_replyto'));
+    }
 
     // a bot filled the hidden field: look successful, send nothing
     if (o.data.get('_gotcha')) { o.finish('posted'); return; }

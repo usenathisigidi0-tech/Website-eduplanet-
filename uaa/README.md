@@ -69,7 +69,7 @@ the enquiry while still showing a thank-you. There are now two honest outcomes:
 
 - **Posted** — an endpoint is set and returned a success. The visitor sees
   "Thanks! We'll get back to you within 24 hours with your quote."
-- **Handoff** — no endpoint is set, or the post failed. The visitor sees their
+- **Handoff** — the post failed (no connection, or Formspree returned an error). The visitor sees their
   brief written out, with Copy / Send on WhatsApp / Open in email buttons they
   click themselves, plus the address and number in plain text.
 
@@ -79,13 +79,13 @@ installed.
 
 ### Turning on posted delivery
 
-Set one value near the top of `assets/js/uaa.js`:
+This is **live**. The endpoint is set near the top of `assets/js/uaa.js`:
 
 ```js
-var FORM_ENDPOINT = 'https://formspree.io/f/XXXXXXX';
+var FORM_ENDPOINT = 'https://formspree.io/f/mgavwnon';
 ```
 
-That is the only edit — both forms read it. A `data-endpoint` attribute on an
+Both forms read it; that one line is the only place it appears. A `data-endpoint` attribute on an
 individual form overrides it. Any endpoint accepting a `POST` of `FormData`
 works: Formspree, Netlify Forms, an n8n or Make webhook, your own script.
 
@@ -96,8 +96,9 @@ What the forms already handle:
 - **Real error checking.** `fetch` only rejects on network failure, so an HTTP
   4xx/5xx is caught by hand and drops to the handoff. A rejected submission can
   never show a false "thank you".
-- **`_replyto`** carries the enquirer's address, so replying in Gmail answers
-  them, not you.
+- **Reply-to sent twice**, as `_replyto` and as `email`. Formspree reads the
+  first on older forms and the second on newer ones, so replying in Gmail
+  answers the enquirer either way.
 - **`_subject`** gives a readable subject: "Quote request — Web App — Bay
   Plumbing Co."
 - **`_gotcha`** is a hidden spam trap; bots fill it, the submission is dropped.
