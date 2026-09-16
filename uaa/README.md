@@ -15,7 +15,7 @@ different pricing, different FAQ, and even a different accent colour.
 |---|---|---|
 | `web` | Ember `#ff7a45` | Websites, work, website pricing |
 | `ai` | Cyan `#35e4ff` | Receptionist, live call demo, receptionist pricing |
-| `both` | Violet `#8b5cf6` | Everything, plus the Full Front Desk bundle |
+| `both` | Violet `#8b5cf6` | Everything — both pricing sections and the monthly plans |
 
 Motion design, process, FAQ and the quote form are always shown.
 
