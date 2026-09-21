@@ -68,11 +68,33 @@
       .then(function () { if (btn) { btn.disabled = false; btn.style.opacity = ''; } });
   }
 
+  var MAIL_TO = 'usenathisigidi0@gmail.com';
+
+  /* Copies text, selecting a fallback element so a refusal still leaves the
+     value ready to copy by hand. Returns whether the copy itself succeeded. */
+  function copyToClipboard(text, selectEl) {
+    if (selectEl && window.getSelection && document.createRange) {
+      try {
+        var r = document.createRange();
+        r.selectNodeContents(selectEl);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(r);
+      } catch (e) {}
+    }
+    try { if (document.execCommand('copy')) return true; } catch (e) {}
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).catch(function () {});
+      return true;
+    }
+    return false;
+  }
+
   /* True when the page sits in a frame whose parent we cannot reach — an
-     embedded preview. Such frames block opening mailto: and external links
-     ("Blocked opening ...", which the viewer reports as blocked content), so
-     the handoff leads with Copy there instead of offering dead buttons. A
-     normally hosted page is never confined and keeps all three actions. */
+     embedded preview. Such frames refuse to open mailto:, tel: and external
+     links ("Blocked opening ...", which the viewer reports as blocked
+     content), so the send row is hidden there and the manual instructions
+     shown instead. A normally hosted page is never confined. */
   function isConfined() {
     if (window.self === window.top) return false;
     try { return !window.top.location.host; } catch (e) { return true; }
@@ -93,18 +115,32 @@
     var confined = isConfined();
     var wa = $('[data-wa]', panel);
     var mail = $('[data-mail]', panel);
+    var call = $('[data-call]', panel);
+    var ways = $('.handoff__ways', panel);
     var note = $('[data-preview-note]', panel);
 
-    if (wa) {
-      wa.hidden = confined;
-      wa.href = 'https://wa.me/27639329054?text=' + encodeURIComponent(brief);
-    }
+    if (wa) wa.href = 'https://wa.me/27639329054?text=' + encodeURIComponent(brief);
     if (mail) {
-      mail.hidden = confined;
-      mail.href = 'mailto:usenathisigidi0@gmail.com?subject=' +
+      mail.href = 'mailto:' + MAIL_TO + '?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(brief);
     }
+    if (call) call.href = 'tel:+27639329054';
+
+    // A confined frame refuses to open WhatsApp, mail or the dialler, so hide
+    // the whole row there rather than offer three buttons that error, and show
+    // the manual instructions instead. Copy works everywhere and stays.
+    if (ways) ways.hidden = confined;
     if (note) note.hidden = !confined;
+
+    var copyAddr = $('[data-copy-email]', panel);
+    if (copyAddr && !copyAddr.dataset.wired) {
+      copyAddr.dataset.wired = '1';
+      copyAddr.addEventListener('click', function () {
+        var done = copyToClipboard(MAIL_TO, $('.handoff__addr', panel));
+        copyAddr.textContent = done ? 'Copied' : 'Select it above';
+        window.setTimeout(function () { copyAddr.textContent = 'Copy address'; }, 2200);
+      });
+    }
 
     var copy = $('[data-copy]', panel);
     if (copy && !copy.dataset.wired) {

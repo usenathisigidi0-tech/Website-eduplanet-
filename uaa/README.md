@@ -75,11 +75,16 @@ the enquiry while still showing a thank-you. There are now two honest outcomes:
 
 Either way the answers survive.
 
-The handoff adapts to where it is running. A page inside a frame it cannot
-reach out of — an embedded preview — has `mailto:` and external links blocked
-by the host ("Blocked opening …"), so there the WhatsApp and email buttons are
-hidden, Copy leads, and a line explains why. A normally hosted page is never
-confined and keeps all three actions.
+The handoff is two plain steps. **1 — Copy your brief**, a read-only box with
+the answers and a full-width copy button. **2 — Send it to us**, a row of three
+real links: WhatsApp (the brief arrives already typed into the chat), email, and
+call. Below them a manual line repeats the address with its own copy button and
+the number, for anyone who would rather do it by hand.
+
+A page inside a frame it cannot reach out of — an embedded preview — has
+`mailto:`, `tel:` and external links refused by the host ("Blocked opening …"),
+so the three-link row is hidden there and a line explains why. Copy and the
+manual instructions work everywhere, so the visitor is never stuck.
 
 **A preview embed also blocks the POST itself**, so a form tested inside one
 always lands on the handoff no matter how healthy the endpoint is. Posting can
