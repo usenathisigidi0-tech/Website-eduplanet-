@@ -137,6 +137,24 @@ Poster frames were generated with:
 ffmpeg -ss 4 -i assets/video/CLIP.mp4 -frames:v 1 -q:v 4 -vf scale=640:-2 assets/img/CLIP-poster.jpg
 ```
 
+## Live deployment
+
+| | |
+|---|---|
+| URL | https://uaa-agency.vercel.app |
+| Vercel project | `uaa-agency` (team `uaa1`) |
+| Deployed from | branch `claude/stoic-allen-tcmeyw`, root directory `uaa` |
+| Protection | none — publicly viewable |
+
+The project's root directory is `uaa`, so Vercel serves this folder at `/` and
+the EduPlanet site at the repo root is not part of this deployment.
+
+The Git link could not be verified when the project was created, so pushes may
+not redeploy on their own. Check **Project → Settings → Git** in the Vercel
+dashboard and connect `usenathisigidi0-tech/Website-eduplanet-` if it is not
+already, and set the production branch to `claude/stoic-allen-tcmeyw` (or merge
+that branch into `main` and leave the production branch as `main`).
+
 ## Moving the site to the domain root
 
 It currently lives in `/uaa/` so the existing EduPlanet site in this repo keeps
