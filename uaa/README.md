@@ -157,3 +157,8 @@ All asset paths are relative, so nothing needs editing either way.
 - No horizontal scroll at 390px; the layout collapses at 1080px, 900px and 640px.
 - Videos autoplay muted and looping. Reel sound is opt-in per tile, and only one
   tile can be unmuted at a time.
+- **Nothing fetches video before the page has painted.** Every `<video>` is
+  `preload="none"`; ambient clips start on `load` + idle, skip sections the
+  chosen track is hiding, and stand down entirely when Data Saver is on or the
+  connection reports 2g. Each has a poster, so the design holds if video never
+  arrives. First load is ~383 KB.

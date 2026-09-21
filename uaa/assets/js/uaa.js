@@ -218,11 +218,12 @@
     if (need) need.value = track;
     $$('[data-need-pill] input').forEach(function (i) { i.checked = i.value === track; });
 
-    // pause any hero video that is now hidden, play the one that is showing
+    // pause any section video the new track hides; play the one it reveals,
+    // but only once the deferred ambient start has run
     $$('video[data-track-video]').forEach(function (v) {
-      var visible = v.closest('[data-show]') === null ||
-        v.closest('[data-show]').offsetParent !== null;
-      if (visible) { safePlay(v); } else { v.pause(); }
+      var hidden = v.closest('[data-show]') && v.closest('[data-show]').offsetParent === null;
+      if (hidden) { v.pause(); }
+      else if (ambientStarted) { safePlay(v); }
     });
 
     if (opts.scroll) {
@@ -259,6 +260,7 @@
       gate.hidden = true;
       var v = $('video', gate);
       if (v) v.pause();
+      startAmbient();     // hero video reuses the gate's file, now warm in cache
     }, 700);
   }
 
@@ -356,8 +358,30 @@
     if (p && p.catch) p.catch(function () { /* autoplay blocked — poster stands in */ });
   }
 
-  // ambient background videos
-  $$('video[data-ambient]').forEach(function (v) { safePlay(v); });
+  /* Ambient video is the heaviest thing on the page, so it waits until the
+     page has painted and the browser is idle, and it never starts a clip in a
+     section the chosen track is hiding. Every one has a poster, so the design
+     holds even if the video never arrives. */
+  var ambientStarted = false;
+
+  function startAmbient() {
+    ambientStarted = true;
+    var conn = navigator.connection || {};
+    if (conn.saveData) return;                                  // Data Saver is on
+    if (/(^|\-)2g$/.test(conn.effectiveType || '')) return;      // too slow to be worth it
+    if (root.classList.contains('is-gated')) return;            // openGate runs the gate's own
+    $$('video[data-ambient]').forEach(function (v) {
+      if (v.offsetParent === null) return;                      // hidden by the track filter
+      safePlay(v);
+    });
+  }
+
+  function whenIdle(fn) {
+    if (window.requestIdleCallback) { window.requestIdleCallback(fn, { timeout: 2000 }); }
+    else { window.setTimeout(fn, 400); }
+  }
+  if (document.readyState === 'complete') whenIdle(startAmbient);
+  else window.addEventListener('load', function () { whenIdle(startAmbient); });
 
   // hover / focus to play, with the poster underneath
   $$('[data-hoverplay]').forEach(function (card) {
