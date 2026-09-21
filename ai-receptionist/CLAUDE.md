@@ -76,9 +76,35 @@ Every client delivery ends with a report — written to
 No hedging, no padding. If something is untested, it goes under
 "Couldn't do", not "Built".
 
+### 7. Platform keys — save, use REST, test
+Whenever the owner names a platform and gives me a key, without being asked again:
+1. **Save the key to `.env`** in this folder as `<PLATFORM>_API_KEY`. I confirm
+   `.env` is gitignored *before* the key touches disk, and `chmod 600` it. The
+   variable *name* goes in `.env.example`; the value never does.
+2. **Use the platform's REST API** — the official REST endpoints over HTTPS with
+   the key in an `Authorization` header, read from the environment. Never
+   hardcode a key in source, a config file, or a committed script. No scraping
+   or browser automation standing in for an API.
+3. **Test the key with one API call** — a single cheap, read-only call (a list
+   or get; never one that creates, sends, dials, or charges). I report the
+   outcome plainly: working, rejected, or blocked. An untested key is reported
+   under "Couldn't do", never under "Built".
+Then record what I learned about the platform in `docs/<platform>.md` (rule 5).
+
+If a key arrives in chat, it is exposed in that transcript: I save it, use it,
+and tell the owner once that rotating it after setup is the safer move.
+
 ## Secrets
-API keys, tokens and client credentials never get committed. `config/` holds
-env var *names* and a `.env.example`; real values stay in the deploy target.
+API keys, tokens and client credentials never get committed. `.env` is
+gitignored and holds real values; `.env.example` and `config/` hold env var
+*names* only. Deploy targets get the real values set directly, never via a
+committed file.
+
+## Platforms
+
+| Platform | Purpose | Key in `.env` | Notes |
+|---|---|---|---|
+| Retell | Voice / phone receptionist | `RETELL_API_KEY` | REST v2, POST-based lists — `docs/retell.md` |
 
 ## Skills
 
