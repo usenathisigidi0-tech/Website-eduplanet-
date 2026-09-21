@@ -62,6 +62,14 @@
     })
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
+        // Some endpoints answer 200 with an error in the body, and a webhook
+        // may return no JSON at all — treat an unreadable body as fine.
+        return res.json().catch(function () { return {}; });
+      })
+      .then(function (data) {
+        if (data && (data.error || (data.errors && data.errors.length))) {
+          throw new Error('endpoint reported an error');
+        }
         o.finish('posted');
       })
       .catch(function () { o.finish('handoff'); })
