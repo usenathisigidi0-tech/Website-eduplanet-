@@ -822,46 +822,45 @@
 <div data-done-posted hidden>
                 <h3 style="margin-bottom:.7rem">Thanks! We&rsquo;ll get back to you within 24 hours with your quote.</h3>
                 <p class="lede" style="margin-inline:auto">It&rsquo;s landed in our inbox and we&rsquo;ll reply to the address you gave us.</p>
+                <p style="margin:1.4rem 0 0"><a class="btn btn--ghost btn--sm" href="https://wa.me/27639329054" target="_blank" rel="noopener" data-wa-now>Rather chat now? WhatsApp us &rarr;</a></p>
               </div>
 
               <div data-done-handoff hidden>
                 <h3 style="margin-bottom:.7rem">Almost there &mdash; send us your brief.</h3>
-                <p class="lede" style="margin-inline:auto">Two steps and it&rsquo;s with us. We reply within 24&nbsp;hours.</p>
+                <p class="lede" style="margin-inline:auto">One tap and it&rsquo;s with us. We reply within 24&nbsp;hours.</p>
 
                 <div class="handoff">
-                  <p class="handoff__step"><b>1</b> Copy your brief</p>
-                  <textarea class="handoff__text" id="q-handoff" readonly rows="8" aria-label="Your brief"></textarea>
-                  <button class="btn btn--primary handoff__copy" type="button" data-copy>Copy the brief</button>
-
-                  <p class="handoff__step"><b>2</b> Send it to us</p>
-
-                  <p class="handoff__note" data-preview-note hidden>Opening WhatsApp, mail and the dialler is blocked inside this preview &mdash; on the live site these open straight away. For now, copy the brief above and the address below and send it from your own apps.</p>
+                  <p class="handoff__note" data-preview-note hidden>Opening WhatsApp, mail and the dialler is blocked inside this preview only. On the live site each button below opens straight away &mdash; for now, copy the brief and send it from your own apps.</p>
 
                   <div class="handoff__ways">
-                    <a class="way" data-wa target="_blank" rel="noopener">
+                    <a class="way way--primary" data-wa target="_blank" rel="noopener">
                       <span class="way__ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2.5a9.44 9.44 0 0 0-8.1 14.26L2.5 21.5l4.87-1.4A9.44 9.44 0 1 0 12.04 2.5Zm0 1.72a7.72 7.72 0 1 1-3.93 14.36l-.28-.17-2.9.83.85-2.82-.18-.29a7.72 7.72 0 0 1 6.44-11.91Zm4.42 9.82c-.24-.12-1.43-.7-1.65-.78s-.38-.12-.55.12-.63.78-.77.94-.28.18-.52.06a6.3 6.3 0 0 1-1.86-1.15 7 7 0 0 1-1.29-1.6c-.13-.24 0-.36.1-.48s.24-.28.36-.42a1.6 1.6 0 0 0 .24-.4.44.44 0 0 0 0-.42c0-.12-.55-1.32-.75-1.8s-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.72 2.72 0 0 0-.85 2.02A4.71 4.71 0 0 0 8.3 12.6a10.8 10.8 0 0 0 4.13 3.65 13.9 13.9 0 0 0 1.38.51 3.32 3.32 0 0 0 1.52.1 2.49 2.49 0 0 0 1.63-1.15 2.02 2.02 0 0 0 .14-1.15c-.06-.1-.22-.16-.46-.28Z"/></svg></span>
-                      <span class="way__txt"><b>WhatsApp us</b><span>Opens a chat with your brief already typed in</span></span>
+                      <span class="way__txt"><b>Send on WhatsApp</b><span>Opens the chat with your brief already written &mdash; just press send</span></span>
                       <span class="way__go" aria-hidden="true">&rarr;</span>
                     </a>
 
                     <a class="way" data-mail target="_blank" rel="noopener">
                       <span class="way__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg></span>
-                      <span class="way__txt"><b>Email us</b><span>usenathisigidi0@gmail.com</span></span>
+                      <span class="way__txt"><b>Send by email</b><span>Opens your mail app, brief and subject filled in</span></span>
                       <span class="way__go" aria-hidden="true">&rarr;</span>
                     </a>
 
                     <a class="way" data-call href="tel:+27639329054">
                       <span class="way__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 2.8h2.2l1.6 4-1.9 1.3a12.5 12.5 0 0 0 5.5 5.5l1.3-1.9 4 1.6v2.2a2.5 2.5 0 0 1-2.7 2.5A16.6 16.6 0 0 1 4 5.5 2.5 2.5 0 0 1 6.5 2.8Z"/></svg></span>
-                      <span class="way__txt"><b>Call us</b><span>063 932 9054</span></span>
+                      <span class="way__txt"><b>Call us now</b><span>063 932 9054 &mdash; opens your dialler</span></span>
                       <span class="way__go" aria-hidden="true">&rarr;</span>
                     </a>
                   </div>
 
-                  <p class="handoff__manual">Doing it by hand? Paste the brief into a new email to
-                    <b class="handoff__addr">usenathisigidi0@gmail.com</b>
-                    <button class="handoff__mini" type="button" data-copy-email>Copy address</button>
-                    <span class="handoff__or">&middot; or WhatsApp / call <b>063&nbsp;932&nbsp;9054</b></span>
-                  </p>
+                  <details class="handoff__copybox">
+                    <summary>Rather copy and paste it yourself?</summary>
+                    <textarea class="handoff__text" id="q-handoff" readonly rows="8" aria-label="Your brief"></textarea>
+                    <button class="btn btn--ghost btn--sm handoff__copy" type="button" data-copy>Copy the brief</button>
+                    <p class="handoff__manual">Send it to <b class="handoff__addr">usenathisigidi0@gmail.com</b>
+                      <button class="handoff__mini" type="button" data-copy-email>Copy address</button>
+                      <span class="handoff__or">&middot; or WhatsApp / call <b>063&nbsp;932&nbsp;9054</b></span>
+                    </p>
+                  </details>
                 </div>
               </div>
             </div>
@@ -993,46 +992,45 @@
 <div data-done-posted hidden>
                 <h3 style="margin-bottom:.7rem">Thanks! We&rsquo;ll get back to you within 24 hours with your quote.</h3>
                 <p class="lede" style="margin-inline:auto">It&rsquo;s landed in our inbox and we&rsquo;ll reply to the address you gave us.</p>
+                <p style="margin:1.4rem 0 0"><a class="btn btn--ghost btn--sm" href="https://wa.me/27639329054" target="_blank" rel="noopener" data-wa-now>Rather chat now? WhatsApp us &rarr;</a></p>
               </div>
 
               <div data-done-handoff hidden>
                 <h3 style="margin-bottom:.7rem">Almost there &mdash; send us your brief.</h3>
-                <p class="lede" style="margin-inline:auto">Two steps and it&rsquo;s with us. We reply within 24&nbsp;hours.</p>
+                <p class="lede" style="margin-inline:auto">One tap and it&rsquo;s with us. We reply within 24&nbsp;hours.</p>
 
                 <div class="handoff">
-                  <p class="handoff__step"><b>1</b> Copy your brief</p>
-                  <textarea class="handoff__text" id="qm-handoff" readonly rows="8" aria-label="Your brief"></textarea>
-                  <button class="btn btn--primary handoff__copy" type="button" data-copy>Copy the brief</button>
-
-                  <p class="handoff__step"><b>2</b> Send it to us</p>
-
-                  <p class="handoff__note" data-preview-note hidden>Opening WhatsApp, mail and the dialler is blocked inside this preview &mdash; on the live site these open straight away. For now, copy the brief above and the address below and send it from your own apps.</p>
+                  <p class="handoff__note" data-preview-note hidden>Opening WhatsApp, mail and the dialler is blocked inside this preview only. On the live site each button below opens straight away &mdash; for now, copy the brief and send it from your own apps.</p>
 
                   <div class="handoff__ways">
-                    <a class="way" data-wa target="_blank" rel="noopener">
+                    <a class="way way--primary" data-wa target="_blank" rel="noopener">
                       <span class="way__ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2.5a9.44 9.44 0 0 0-8.1 14.26L2.5 21.5l4.87-1.4A9.44 9.44 0 1 0 12.04 2.5Zm0 1.72a7.72 7.72 0 1 1-3.93 14.36l-.28-.17-2.9.83.85-2.82-.18-.29a7.72 7.72 0 0 1 6.44-11.91Zm4.42 9.82c-.24-.12-1.43-.7-1.65-.78s-.38-.12-.55.12-.63.78-.77.94-.28.18-.52.06a6.3 6.3 0 0 1-1.86-1.15 7 7 0 0 1-1.29-1.6c-.13-.24 0-.36.1-.48s.24-.28.36-.42a1.6 1.6 0 0 0 .24-.4.44.44 0 0 0 0-.42c0-.12-.55-1.32-.75-1.8s-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.72 2.72 0 0 0-.85 2.02A4.71 4.71 0 0 0 8.3 12.6a10.8 10.8 0 0 0 4.13 3.65 13.9 13.9 0 0 0 1.38.51 3.32 3.32 0 0 0 1.52.1 2.49 2.49 0 0 0 1.63-1.15 2.02 2.02 0 0 0 .14-1.15c-.06-.1-.22-.16-.46-.28Z"/></svg></span>
-                      <span class="way__txt"><b>WhatsApp us</b><span>Opens a chat with your brief already typed in</span></span>
+                      <span class="way__txt"><b>Send on WhatsApp</b><span>Opens the chat with your brief already written &mdash; just press send</span></span>
                       <span class="way__go" aria-hidden="true">&rarr;</span>
                     </a>
 
                     <a class="way" data-mail target="_blank" rel="noopener">
                       <span class="way__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg></span>
-                      <span class="way__txt"><b>Email us</b><span>usenathisigidi0@gmail.com</span></span>
+                      <span class="way__txt"><b>Send by email</b><span>Opens your mail app, brief and subject filled in</span></span>
                       <span class="way__go" aria-hidden="true">&rarr;</span>
                     </a>
 
                     <a class="way" data-call href="tel:+27639329054">
                       <span class="way__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 2.8h2.2l1.6 4-1.9 1.3a12.5 12.5 0 0 0 5.5 5.5l1.3-1.9 4 1.6v2.2a2.5 2.5 0 0 1-2.7 2.5A16.6 16.6 0 0 1 4 5.5 2.5 2.5 0 0 1 6.5 2.8Z"/></svg></span>
-                      <span class="way__txt"><b>Call us</b><span>063 932 9054</span></span>
+                      <span class="way__txt"><b>Call us now</b><span>063 932 9054 &mdash; opens your dialler</span></span>
                       <span class="way__go" aria-hidden="true">&rarr;</span>
                     </a>
                   </div>
 
-                  <p class="handoff__manual">Doing it by hand? Paste the brief into a new email to
-                    <b class="handoff__addr">usenathisigidi0@gmail.com</b>
-                    <button class="handoff__mini" type="button" data-copy-email>Copy address</button>
-                    <span class="handoff__or">&middot; or WhatsApp / call <b>063&nbsp;932&nbsp;9054</b></span>
-                  </p>
+                  <details class="handoff__copybox">
+                    <summary>Rather copy and paste it yourself?</summary>
+                    <textarea class="handoff__text" id="qm-handoff" readonly rows="8" aria-label="Your brief"></textarea>
+                    <button class="btn btn--ghost btn--sm handoff__copy" type="button" data-copy>Copy the brief</button>
+                    <p class="handoff__manual">Send it to <b class="handoff__addr">usenathisigidi0@gmail.com</b>
+                      <button class="handoff__mini" type="button" data-copy-email>Copy address</button>
+                      <span class="handoff__or">&middot; or WhatsApp / call <b>063&nbsp;932&nbsp;9054</b></span>
+                    </p>
+                  </details>
                 </div>
               </div>
       <button class="btn btn--ghost" type="button" id="qm-done-close" style="margin-top:22px">Close</button>

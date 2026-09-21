@@ -752,6 +752,30 @@ html[data-track="both"] [data-show]:not([data-show~="both"]){display:none !impor
 .handoff__text:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .handoff__copy{width:100%;margin-top:11px}
 
+/* the WhatsApp row leads: it is the one redirect that carries the brief */
+.way--primary{
+  border-color:var(--accent);
+  background:linear-gradient(100deg,var(--accent-soft),rgba(255,255,255,.02));
+}
+.way--primary .way__ico{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.way--primary .way__txt b{font-size:1rem}
+.way--primary:hover{background:linear-gradient(100deg,var(--accent-soft),var(--accent-soft))}
+
+/* copying is the fallback, folded away unless the visitor wants it */
+.handoff__copybox{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+.handoff__copybox summary{
+  cursor:pointer;list-style:none;font-size:.85rem;color:var(--text-3);
+  display:inline-flex;align-items:center;gap:8px;transition:color .3s;
+}
+.handoff__copybox summary::-webkit-details-marker{display:none}
+.handoff__copybox summary::before{
+  content:"+";font-family:var(--mono);font-size:.9rem;width:18px;height:18px;border-radius:50%;
+  border:1px solid var(--line-strong);display:grid;place-items:center;line-height:1;
+}
+.handoff__copybox[open] summary::before{content:"\2212"}
+.handoff__copybox summary:hover{color:var(--text)}
+.handoff__copybox > *:not(summary){margin-top:12px}
+
 .handoff__ways{display:grid;gap:8px}
 .way{
   display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:14px;

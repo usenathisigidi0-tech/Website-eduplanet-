@@ -115,7 +115,13 @@
     var handoff = $('[data-done-handoff]', panel);
     if (posted) posted.hidden = mode !== 'posted';
     if (handoff) handoff.hidden = mode === 'posted';
-    if (mode === 'posted') return;
+
+    if (mode === 'posted') {
+      // the brief is already delivered; this is just an offer to talk now
+      var now = $('[data-wa-now]', panel);
+      if (now) now.hidden = isConfined();
+      return;
+    }
 
     var box = $('.handoff__text', panel);
     if (box) box.value = brief;
@@ -134,11 +140,18 @@
     }
     if (call) call.href = 'tel:+27639329054';
 
-    // A confined frame refuses to open WhatsApp, mail or the dialler, so hide
-    // the whole row there rather than offer three buttons that error, and show
-    // the manual instructions instead. Copy works everywhere and stays.
+    // On a real domain each row above opens WhatsApp, the mail app or the
+    // dialler directly — that is the whole point, so it leads. A confined
+    // preview frame refuses all three, so there the row is hidden, the reason
+    // is shown, and the copy fallback is unfolded so there is still a way out.
+    var copybox = $('.handoff__copybox', panel);
     if (ways) ways.hidden = confined;
     if (note) note.hidden = !confined;
+    if (copybox) {
+      copybox.open = confined;
+      var sum = $('summary', copybox);
+      if (sum) sum.hidden = confined;   // nothing to unfold when it is the only option
+    }
 
     var copyAddr = $('[data-copy-email]', panel);
     if (copyAddr && !copyAddr.dataset.wired) {

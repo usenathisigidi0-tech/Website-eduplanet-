@@ -75,18 +75,23 @@ the enquiry while still showing a thank-you. There are now two honest outcomes:
 
 Either way the answers survive.
 
-The handoff is two plain steps. **1 — Copy your brief**, a read-only box with
-the answers and a full-width copy button. **2 — Send it to us**, a row of three
-real links: WhatsApp (the brief arrives already typed into the chat), email, and
-call. Below them a manual line repeats the address with its own copy button and
-the number, for anyone who would rather do it by hand.
+The handoff **redirects rather than instructs**. Three rows, each a real link
+the visitor taps once: **Send on WhatsApp** (leads, because it is the only one
+that carries the brief — the chat opens with it already written), **Send by
+email** (`mailto:` with brief and subject filled in) and **Call us now**
+(`tel:`, straight to the dialler). Copying is folded away under "Rather copy and
+paste it yourself?" for anyone who wants it.
 
 A page inside a frame it cannot reach out of — an embedded preview — has
-`mailto:`, `tel:` and external links refused by the host ("Blocked opening …"),
-so the three-link row is hidden there and a line explains why. Copy and the
-manual instructions work everywhere, so the visitor is never stuck.
+`mailto:`, `tel:` and external links refused by the host ("Blocked opening …").
+Only there is the row of three hidden, a line shown saying why, and the copy
+fallback unfolded so there is still a way out. **None of that appears on a
+deployed site**, where `isConfined()` is false and the three redirects lead.
 
-**A preview embed also blocks the POST itself**, so a form tested inside one
+A successful post also offers "Rather chat now? WhatsApp us" beneath the
+thank-you, since the brief is already delivered and some people want to talk.
+
+**A preview embed blocks the POST itself too**, so a form tested inside one
 always lands on the handoff no matter how healthy the endpoint is. Posting can
 only be judged on a real domain.
 
