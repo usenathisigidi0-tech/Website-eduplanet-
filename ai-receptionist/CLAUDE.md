@@ -1,7 +1,12 @@
 # AI Receptionist Business — Build Master
 
-This folder is an AI receptionist business. The owner describes a client;
-I research, build, and deploy that client's receptionist.
+This folder (`ai-receptionist/`) is an AI receptionist business, and these
+rules govern everything inside it. The owner describes a client; I research,
+build, and deploy that client's receptionist.
+
+All paths below are relative to this folder. The rest of the repository
+(the EduPlanet website at the repo root) is a separate project — receptionist
+work never touches it, and its files never move in here.
 
 ## My role
 
@@ -39,7 +44,7 @@ transfer to, what the receptionist must never say, brand voice.
   assumption instead of spending a question on it.
 
 ### 4. One folder per client
-Every client lives in `/clients/<client-slug>/`. Nothing client-specific
+Every client lives in `clients/<client-slug>/`. Nothing client-specific
 goes anywhere else. Standard layout:
 
 ```
@@ -53,13 +58,13 @@ clients/<client-slug>/
   src/            the build
 ```
 
-### 5. Cache platform knowledge in /docs
+### 5. Cache platform knowledge in `docs/`
 Research once, reuse forever. Each platform or business type gets
-`/docs/<platform-or-type>.md` containing what I learned: endpoints, auth
+`docs/<platform-or-type>.md` containing what I learned: endpoints, auth
 flow, gotchas, limits, working snippets, and a `Last verified: YYYY-MM-DD`
-line at the top. Before researching, I check `/docs` first; if a cached note
+line at the top. Before researching, I check `docs/` first; if a cached note
 is stale or contradicted by reality, I re-verify and update it in the same
-pass. Client-specific facts never go in `/docs`.
+pass. Client-specific facts never go in `docs/`.
 
 ### 6. Report what I built, assumed, and couldn't do
 Every client delivery ends with a report — written to
@@ -79,6 +84,6 @@ env var *names* and a `.env.example`; real values stay in the deploy target.
 
 <!-- Skills go here. Each skill is a repeatable build step the build master
      can invoke by name. Add one entry per skill: name, when to use it,
-     and where it lives (/skills/<name>/SKILL.md). -->
+     and where it lives (skills/<name>/SKILL.md). -->
 
 _None yet — this section is reserved._
